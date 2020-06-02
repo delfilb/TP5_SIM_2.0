@@ -16,7 +16,8 @@ namespace TP5_SIM_2._02
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Menu());
+            Application.Run(new Formularios.Menu());
+            
         }
     }
 }

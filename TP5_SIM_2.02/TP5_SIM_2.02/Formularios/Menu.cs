@@ -19,17 +19,20 @@ namespace TP5_SIM_2._02.Formularios
 
         public Menu()
         {
+
             InitializeComponent();
         }
 
         private void inicio()
         {
+           
             // int iter = tbxMedia.Text;
 
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
+            
             Dictionary<int, string> clientesEnCola = new Dictionary<int, string>();
 
             Cliente cli = new Cliente();
@@ -217,8 +220,33 @@ namespace TP5_SIM_2._02.Formularios
             }
             else
             {
+
                 //aca debería ir el caso B
             }
+
+        }
+
+        private void rbCasoA_CheckedChanged(object sender, EventArgs e)
+        {
+            tbxDesdeDemoraCliente.Enabled = false;
+            tbxHastaDemoraCliente.Enabled = false;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            rbCasoA.Checked = false;
+            rbCasoB.Checked = false;
+            tbxDesdeFilas.Clear();
+            tbxHastaFilas.Clear();
+            tbxDesdeDemoraCliente.Enabled = true;
+            tbxDesdeDemoraCaja.Clear();
+            tbxHastaDemoraCliente.Enabled = true;
+            tbxHastaDemoraCaja.Clear();
+            tbxDesdeDemoraCliente.Clear();
+            tbxHastaDemoraCliente.Clear();
+            tbxMedia.Clear();
+            
+            dgv_datos.DataSource = null;
 
         }
     }

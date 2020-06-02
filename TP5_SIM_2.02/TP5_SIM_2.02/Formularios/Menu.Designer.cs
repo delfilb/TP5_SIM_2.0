@@ -70,6 +70,7 @@
             this.acClientesFinalizados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoOciosoCaja1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantCaja2Usada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -110,6 +111,7 @@
             this.rbCasoA.TabStop = true;
             this.rbCasoA.Text = "Caso A";
             this.rbCasoA.UseVisualStyleBackColor = true;
+            this.rbCasoA.CheckedChanged += new System.EventHandler(this.rbCasoA_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -445,11 +447,22 @@
             this.CantCaja2Usada.Name = "CantCaja2Usada";
             this.CantCaja2Usada.Width = 125;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(1284, 64);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(95, 39);
+            this.btnLimpiar.TabIndex = 28;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1416, 533);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
@@ -518,6 +531,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn acClientesFinalizados;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoOciosoCaja1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantCaja2Usada;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }
 
