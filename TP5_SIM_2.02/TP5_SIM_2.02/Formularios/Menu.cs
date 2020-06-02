@@ -33,12 +33,9 @@ namespace TP5_SIM_2._02.Formularios
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             
-            Dictionary<int, string> clientesEnCola = new Dictionary<int, string>();
-
             Cliente cli = new Cliente();
             Dictionary<int, Cliente> clientes = new Dictionary<int, Cliente>();
 
-            int n = 0;
             int x = 1;
 
             int media = int.Parse(tbxMedia.Text);
@@ -56,13 +53,6 @@ namespace TP5_SIM_2._02.Formularios
             int cola_caja_2 = 0;
             int cant_clientes_finalizados = 0;
 
-            double rnd_lleg_cliente = random.NextDouble();
-            double rnd_fin_at = 0;
-            double rnd_pago = 0;
-            double tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
-            double tiempo_fin_atencion = 0;
-            double tiempo_atencion = tiempo_entre_llegadas;
-
             double[] acum_tiempo_at;
             acum_tiempo_at = new double[100];
 
@@ -73,6 +63,14 @@ namespace TP5_SIM_2._02.Formularios
 
             int[] cant_caja_2_usada;
             cant_caja_2_usada = new int[100];
+
+            // variables que se necesitan para la fila Inicializacion 
+            double rnd_lleg_cliente = random.NextDouble();
+            double rnd_fin_at = 0;
+            double rnd_pago = 0;
+            double tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
+            double tiempo_fin_atencion = 0;
+            double tiempo_atencion = tiempo_entre_llegadas;
 
             // i = filas
             // caso A
@@ -94,7 +92,7 @@ namespace TP5_SIM_2._02.Formularios
 
                     }
 
-                    // fila: Inicializacion  ->  reloj = 0,00
+                    // fila 0: Inicializacion  ->  reloj = 0,00
                     if (i == 0)
                     {
                         nombre_evento = "Inicializacion";
@@ -114,8 +112,7 @@ namespace TP5_SIM_2._02.Formularios
                         // por eso se vuelven a calcular mas abajo
                         // nombre_evento, reloj  ->  fila actual
                         // por cada 'llegada_cliente' agrego un cliente 'cli' al diccionario, lo que cambia es el indice (x) de ese diccionario.
-                        // si es la fila 1 se crea el cliente con todos sus atributos 
-                        // sino se crea solo con su estado 
+                        // si es la fila 1 se crea el cliente 
                         if (tiempo_atencion < fin_at_caja_1 && tiempo_atencion < fin_at_caja_2)
                         {
                             nombre_evento = "llegada_cliente";
@@ -124,8 +121,8 @@ namespace TP5_SIM_2._02.Formularios
                             // x contador personal del cliente 
                             x = x + 1;
                             clientes.Add(x, cli);
-                            // si es la primer fila o el dicionario clientes no tiene ninguna cliente guardado, el cliente nuevo se guarda en el indice 1
-                            // en otro caso, se añade el cliente en el indice x con estado "EA";
+                            // si es la primer fila, o el dicionario clientes no tiene ninguna cliente guardado, el cliente nuevo se guarda con el indice 1
+                            // en otro caso, se añade el cliente con indice x, al final del diccionario, con estado "EA";
                             if (i == 1 || clientes.Count() == 0)
                             {
                                 clientes[1].estado = "SAC";
@@ -135,13 +132,17 @@ namespace TP5_SIM_2._02.Formularios
                                 clientes[x].estado = "EA";
                                 cola_caja_1 = cola_caja_1 + 1;
                             }
+
+                            rnd_lleg_cliente = random.NextDouble();
+                            tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
+                            tiempo_atencion = tiempo_entre_llegadas + reloj;
                         }
                         else
                         {
                             if (fin_at_caja_1 < tiempo_atencion && fin_at_caja_1 < fin_at_caja_2)
                             {
-                                // se elimina el cliente que tiene indice 1, por ende estado "SAC", en el diccionario clientes.
-                                // pasa al indice 1 el que tenia indice 2 y su estado cambia a "SAC"
+                                // se elimina el cliente que esta en la posicion 1 del diccionario.
+                                // pasa a estar primero el que estaba en la posicion 2 y su estado cambia a "SAC"
                                 reloj = fin_at_caja_1;
                                 nombre_evento = "fin_atencion_caja_1";
 
@@ -154,7 +155,6 @@ namespace TP5_SIM_2._02.Formularios
                                     clientes[primer_valor_actual.Key].estado = "SAC";
                                 }
 
-                                x = x - 1;
                                 cola_caja_1 = cola_caja_1 - 1;
                                 acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
                             }
@@ -168,20 +168,18 @@ namespace TP5_SIM_2._02.Formularios
                         }
 
                         // todos estos datos son de la fila actual
-                        // se calcula toda las columnas de "llegada cliente" y "fin atencion caja (i)"
+                        // se calcula toda las columnas de "fin atencion caja (i)"
                         // ya sea cuando la caja con cola se desocupa y se atiende al siguiente en cola
                         // o cuando llega un nuevo cliente y no hay nadie en cola
-                        if ((nombre_evento == "fin_atencion_caja_1" && cola_caja_1 > 0) || (nombre_evento == "llegada_cliente" && cola_caja_1 == 0))
+                        if ((nombre_evento == "fin_atencion_caja_1" && cola_caja_1 > 0) || (nombre_evento == "llegada_cliente"))
                         {
                             estado_caja_1 = "Ocupado";
 
-                            rnd_lleg_cliente = random.NextDouble();
                             rnd_fin_at = random.NextDouble();
                             rnd_pago = random.NextDouble();
 
-                            tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                             tiempo_fin_atencion = demoraCajaDesde + rnd_fin_at * (demoraCajaHasta - demoraCajaDesde);
-                            tiempo_atencion = tiempo_entre_llegadas + reloj;
+                            
 
                             // definicion metodo de pago -> P(), si paga con tarjeta la atencion de caja se demora 2 min mas
                             if (rnd_pago < 0.8)
