@@ -307,6 +307,7 @@
             this.CantCaja2Usada});
             this.dgv_datos.Location = new System.Drawing.Point(15, 163);
             this.dgv_datos.Name = "dgv_datos";
+            this.dgv_datos.RowHeadersWidth = 51;
             this.dgv_datos.RowTemplate.Height = 24;
             this.dgv_datos.Size = new System.Drawing.Size(1364, 358);
             this.dgv_datos.TabIndex = 21;
@@ -314,97 +315,135 @@
             // evento
             // 
             this.evento.HeaderText = "Evento";
+            this.evento.MinimumWidth = 6;
             this.evento.Name = "evento";
+            this.evento.Width = 125;
             // 
             // reloj
             // 
             this.reloj.HeaderText = "Reloj (min)";
+            this.reloj.MinimumWidth = 6;
             this.reloj.Name = "reloj";
+            this.reloj.Width = 125;
             // 
             // rndTiempoLlegada
             // 
             this.rndTiempoLlegada.HeaderText = "RND";
+            this.rndTiempoLlegada.MinimumWidth = 6;
             this.rndTiempoLlegada.Name = "rndTiempoLlegada";
+            this.rndTiempoLlegada.Width = 125;
             // 
             // tiempoEntreLlegada
             // 
             this.tiempoEntreLlegada.HeaderText = "Tiempo entre llegadas";
+            this.tiempoEntreLlegada.MinimumWidth = 6;
             this.tiempoEntreLlegada.Name = "tiempoEntreLlegada";
+            this.tiempoEntreLlegada.Width = 125;
             // 
             // tiempoAtencion
             // 
             this.tiempoAtencion.HeaderText = "Tiempo Atencion";
+            this.tiempoAtencion.MinimumWidth = 6;
             this.tiempoAtencion.Name = "tiempoAtencion";
+            this.tiempoAtencion.Width = 125;
             // 
             // rndTiempoFin
             // 
             this.rndTiempoFin.HeaderText = "RND";
+            this.rndTiempoFin.MinimumWidth = 6;
             this.rndTiempoFin.Name = "rndTiempoFin";
+            this.rndTiempoFin.Width = 125;
             // 
             // tiempoFinAtencion
             // 
             this.tiempoFinAtencion.HeaderText = "Tiempo fin atencion";
+            this.tiempoFinAtencion.MinimumWidth = 6;
             this.tiempoFinAtencion.Name = "tiempoFinAtencion";
+            this.tiempoFinAtencion.Width = 125;
             // 
             // rndMetodoPago
             // 
             this.rndMetodoPago.HeaderText = "RND";
+            this.rndMetodoPago.MinimumWidth = 6;
             this.rndMetodoPago.Name = "rndMetodoPago";
+            this.rndMetodoPago.Width = 125;
             // 
             // metodoPago
             // 
             this.metodoPago.HeaderText = "Metodo Pago";
+            this.metodoPago.MinimumWidth = 6;
             this.metodoPago.Name = "metodoPago";
+            this.metodoPago.Width = 125;
             // 
             // finAt1
             // 
             this.finAt1.HeaderText = "Fin At. 1";
+            this.finAt1.MinimumWidth = 6;
             this.finAt1.Name = "finAt1";
+            this.finAt1.Width = 125;
             // 
             // finAt2
             // 
             this.finAt2.HeaderText = "Fin At. 2";
+            this.finAt2.MinimumWidth = 6;
             this.finAt2.Name = "finAt2";
+            this.finAt2.Width = 125;
             // 
             // estado1
             // 
             this.estado1.HeaderText = "Estado 1";
+            this.estado1.MinimumWidth = 6;
             this.estado1.Name = "estado1";
+            this.estado1.Width = 125;
             // 
             // cola1
             // 
             this.cola1.HeaderText = "Cola 1";
+            this.cola1.MinimumWidth = 6;
             this.cola1.Name = "cola1";
+            this.cola1.Width = 125;
             // 
             // estado2
             // 
             this.estado2.HeaderText = "Estado 2";
+            this.estado2.MinimumWidth = 6;
             this.estado2.Name = "estado2";
+            this.estado2.Width = 125;
             // 
             // cola2
             // 
             this.cola2.HeaderText = "Cola 2";
+            this.cola2.MinimumWidth = 6;
             this.cola2.Name = "cola2";
+            this.cola2.Width = 125;
             // 
             // acTiempoFin
             // 
             this.acTiempoFin.HeaderText = "AC Tiempo Fin At";
+            this.acTiempoFin.MinimumWidth = 6;
             this.acTiempoFin.Name = "acTiempoFin";
+            this.acTiempoFin.Width = 125;
             // 
             // acClientesFinalizados
             // 
             this.acClientesFinalizados.HeaderText = "AC Clientes Finalizados";
+            this.acClientesFinalizados.MinimumWidth = 6;
             this.acClientesFinalizados.Name = "acClientesFinalizados";
+            this.acClientesFinalizados.Width = 125;
             // 
             // tiempoOciosoCaja1
             // 
             this.tiempoOciosoCaja1.HeaderText = "Tiempo ocioso de la caja 1";
+            this.tiempoOciosoCaja1.MinimumWidth = 6;
             this.tiempoOciosoCaja1.Name = "tiempoOciosoCaja1";
+            this.tiempoOciosoCaja1.Width = 125;
             // 
             // CantCaja2Usada
             // 
             this.CantCaja2Usada.HeaderText = "Cant veces caja 2 abierta";
+            this.CantCaja2Usada.MinimumWidth = 6;
             this.CantCaja2Usada.Name = "CantCaja2Usada";
+            this.CantCaja2Usada.Width = 125;
             // 
             // Menu
             // 
