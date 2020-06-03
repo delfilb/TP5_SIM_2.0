@@ -15,10 +15,12 @@ namespace TP5_SIM_2._02.Clases
             double finAtencion = 0;
             string estado = "";
             int cola = 0;
+            
         }
 
         public double tiempoFinAtencion, finAtencion;
-        int nroCaja, cola;
+        public int nroCaja, cola;
+        int[] clientes = new int[100];
         public string estado;
     }
 }
