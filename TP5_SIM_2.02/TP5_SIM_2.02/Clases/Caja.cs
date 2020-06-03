@@ -15,7 +15,7 @@ namespace TP5_SIM_2._02.Clases
              para caja1 {libre;ocupado} caja2 {cerrado; ocupado}
             La cola hace referencia a la cantidad de elementos que se tienen en el vector
             clientes - 1
-            el vector clientes lo que hace es guardar la instancia de los objetos clientes que
+            la queue clientes lo que hace es guardar la instancia de los objetos clientes que
             vayan llegando a cada caja correspondientemente
              */
 
@@ -30,7 +30,7 @@ namespace TP5_SIM_2._02.Clases
 
         public double tiempoFinAtencion, finAtencion;
         public int nroCaja, cola;
-        public object[] clientes;
+        public Queue<Cliente> cliente;
         public string estado;
     }
 }

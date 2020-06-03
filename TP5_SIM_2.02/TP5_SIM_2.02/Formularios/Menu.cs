@@ -74,7 +74,9 @@ namespace TP5_SIM_2._02.Formularios
             double rnd_lleg_cliente = 0;
             double tiempo_entre_llegadas = 0;
             double prox_llegada = 0;
-            int x = 1;
+
+            // El contador de x debería ser 0 para que el id del primer cliente no sea 2
+            int x = 0;
             double reloj = 0;
 
 
@@ -125,7 +127,7 @@ namespace TP5_SIM_2._02.Formularios
                         prox_llegada = tiempo_entre_llegadas;
                         caja1.estado = "Libre";
                         nombre_evento = "Inicialización";
-                        caja1.clientes[caja1.clientes.Length] = 0;
+                        
                         dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_fin_at, fin_at_caja_1, rnd_pago, metodo_pago, fin_at_caja_1, 0 /*Acá le puse 0 porque la caja 2 aun no atiende*/ , caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.cola.ToString(), caja2.estado, caja2.cola.ToString());
                     }
                     else
@@ -133,6 +135,8 @@ namespace TP5_SIM_2._02.Formularios
                         if (prox_llegada < fin_at_caja_1 && prox_llegada < fin_at_caja_2)
                         {
                             Cliente cl = new Cliente();
+
+                            
                             cl.id = x + 1;
                             nombre_evento = "Llegada_Cliente";
                             reloj = prox_llegada;
@@ -144,7 +148,7 @@ namespace TP5_SIM_2._02.Formularios
                                 cl.estado = "SA";
                                 caja1.estado = "Ocupado";
                                 fin_at_caja_1 = fin_atencion();
-                                caja1.clientes[caja1.clientes.Length] = cl;
+                                caja1.cliente.Enqueue(cl);
 
                             }
 
@@ -159,7 +163,7 @@ namespace TP5_SIM_2._02.Formularios
 
                                         cl.estado = "EA";
                                         cl.numCaja = 1;
-                                        caja1.clientes[caja1.clientes.Length] = cl;
+                                        caja1.cliente.Enqueue(cl);
 
 
 
@@ -170,7 +174,7 @@ namespace TP5_SIM_2._02.Formularios
                                         caja2.estado = "Ocupado";
                                         cl.estado = "SA";
                                         cl.numCaja = 2;
-                                        caja2.clientes[caja2.clientes.Length] = cl;
+                                        caja2.cliente.Enqueue(cl);
 
 
                                         /* 
@@ -194,7 +198,7 @@ namespace TP5_SIM_2._02.Formularios
                                         //agregar a cola 1
                                         cl.estado = "EA";
                                         cl.numCaja = 1;
-                                        caja1.clientes[caja1.clientes.Length] = cl;
+                                        caja1.cliente.Enqueue(cl);
 
                                     }
                                     else
@@ -202,11 +206,13 @@ namespace TP5_SIM_2._02.Formularios
                                         //agregar a cola 2
                                         cl.estado = "EA";
                                         cl.numCaja = 2;
-                                        caja2.clientes[caja2.clientes.Length] = cl;
+                                        caja2.cliente.Enqueue(cl);
 
                                     }
 
                                     cl.estado = "EA";
+                                    cl.numCaja = 1;
+                                    caja1.cliente.Enqueue(cl);
                                 }
 
                             }
@@ -216,11 +222,13 @@ namespace TP5_SIM_2._02.Formularios
                             reloj = fin_at_caja_1;
                             //acumulador de cantidad de clientes con atencion finalizada
                             acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
+                            
                             // actualizar AC tiempo de atención y contador clientes con atención finalizada
                             //eliminar al cliente que se va
                             if (caja1.cola == 0)
                             {
                                 caja1.estado = "Libre";
+
                             }
                             else
                             {
