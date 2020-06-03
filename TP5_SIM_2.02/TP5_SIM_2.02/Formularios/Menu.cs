@@ -45,15 +45,12 @@ namespace TP5_SIM_2._02.Formularios
             caja2.nroCaja = 2;
 
 
-
-            
-
             int media = int.Parse(tbxMedia.Text);
             int demoraCajaDesde = int.Parse(tbxDesdeDemoraCaja.Text);
             int demoraCajaHasta = int.Parse(tbxHastaDemoraCaja.Text);
 
+
             string nombre_evento = "";
-            double reloj = 0;
             string metodo_pago = "";
             double fin_at_caja_1 = 100;
             double fin_at_caja_2 = 100;
@@ -64,22 +61,21 @@ namespace TP5_SIM_2._02.Formularios
             int cant_clientes_finalizados = 0;
 
             double acum_tiempo_at = 0;
+            double acum_tiempo_ocioso_caja1 = 0;
             int acum_clientes_at_finalizada = 0;
 
             double tiempo_ocioso_caja_1;
             
             int cant_caja_2_usada;
-            
-
-            // variables que se necesitan para la fila Inicializacion 
-            double rnd_lleg_cliente = random.NextDouble();
-            double rnd_fin_at = 0;
             double rnd_pago = 0;
-            double tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
+            double rnd_fin_at = 0;
             double tiempo_fin_atencion = 0;
-            double prox_llegada = tiempo_entre_llegadas;
-            int x = 1;
 
+            double rnd_lleg_cliente = 0;
+            double tiempo_entre_llegadas = 0;
+            double prox_llegada = 0;
+            int x = 1;
+            double reloj = 0;
 
 
             //Este metodo sirve para calcular el final de atención teniendo en cuenta
@@ -108,8 +104,10 @@ namespace TP5_SIM_2._02.Formularios
                     fin_at = tiempo_fin_atencion + 2 + reloj;
 
                 }
+                // acumulador de tiempo de atencion
+                acum_tiempo_at = acum_tiempo_at + fin_at;
                 return fin_at;
-              }
+            }
 
 
             // i = filas
@@ -118,21 +116,16 @@ namespace TP5_SIM_2._02.Formularios
             { //for para cada cliente el id = x y le vamos sumando 1 por cada iteración.
                 for (int i = 0; i < 11; i++)
                 {
+
                     //evento de inicialización
                     if (i == 0)
                     {
-                        Cliente cl = new Cliente();
-                        cl.id = x;
-                        reloj = prox_llegada;
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
-                        cl.estado = "SA";
-                        cl.numCaja = 1;
-                        caja1.estado = "Ocupado";
+                        caja1.estado = "Libre";
                         nombre_evento = "Inicialización";
-                        caja1.clientes[caja1.clientes.Length] = cl;
-                        fin_at_caja_1 = fin_atencion();
+                        caja1.clientes[caja1.clientes.Length] = 0;
                         dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_fin_at, fin_at_caja_1, rnd_pago, metodo_pago, fin_at_caja_1, 0 /*Acá le puse 0 porque la caja 2 aun no atiende*/ , caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.cola.ToString(), caja2.estado, caja2.cola.ToString());
                     }
                     else
@@ -221,6 +214,8 @@ namespace TP5_SIM_2._02.Formularios
                         if (fin_at_caja_1 < prox_llegada && fin_at_caja_1 < fin_at_caja_2)
                         {
                             reloj = fin_at_caja_1;
+                            //acumulador de cantidad de clientes con atencion finalizada
+                            acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
                             // actualizar AC tiempo de atención y contador clientes con atención finalizada
                             //eliminar al cliente que se va
                             if (caja1.cola == 0)
@@ -239,10 +234,13 @@ namespace TP5_SIM_2._02.Formularios
                         // tiene que estar afuera
                         if (fin_at_caja_2 < prox_llegada && fin_at_caja_2 < fin_at_caja_1)
                         {
-                                reloj = fin_at_caja_2;
-                                // actualizar AC tiempo de atención y contador clientes con atención finalizada
-                                //elimina al cliente que se va
-                                if (caja2.cola == 0)
+                            reloj = fin_at_caja_2;
+                            //acumulador de cantidad de clientes con atencion finalizada
+                            acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
+
+                            // actualizar AC tiempo de atención y contador clientes con atención finalizada
+                            //elimina al cliente que se va
+                            if (caja2.cola == 0)
                                 {
                                     caja2.estado = "Cerrado";
                                 }
@@ -256,9 +254,6 @@ namespace TP5_SIM_2._02.Formularios
                             
                         }
                     }
-
-                    
-
                 }
             }
 
