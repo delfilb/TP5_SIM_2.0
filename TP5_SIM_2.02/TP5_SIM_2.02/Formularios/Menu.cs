@@ -285,7 +285,10 @@ namespace TP5_SIM_2._02.Formularios
             tbxDesdeDemoraCliente.Clear();
             tbxHastaDemoraCliente.Clear();
             tbxMedia.Clear();
+            tbxMinutosSimularB.Clear();
+            tbxMinutosSimularB.Enabled = true;
             
+
             dgv_datos.DataSource = null;
 
         }
