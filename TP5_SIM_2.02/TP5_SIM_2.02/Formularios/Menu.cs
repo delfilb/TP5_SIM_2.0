@@ -49,9 +49,7 @@ namespace TP5_SIM_2._02.Formularios
             int demoraCajaDesde = int.Parse(tbxDesdeDemoraCaja.Text);
             int demoraCajaHasta = int.Parse(tbxHastaDemoraCaja.Text);
             int corteA = int.Parse(tbxCorteA.Text);
-            int corteB = int.Parse(tbxCorteB.Text);
-
-
+            
             string nombre_evento = "";
             string metodo_pago = "";
             double fin_at_caja_1 = 100;
@@ -333,7 +331,9 @@ namespace TP5_SIM_2._02.Formularios
             tbxDesdeDemoraCliente.Enabled = false;
             tbxHastaDemoraCliente.Enabled = false;
             tbxMinutosSimularB.Enabled = false;
+            
         }
+        
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -361,7 +361,13 @@ namespace TP5_SIM_2._02.Formularios
 
         }
 
-       
+        private void rbCasoB_CheckedChanged_1(object sender, EventArgs e)
+        {
+            tbxDesdeDemoraCliente.Enabled = true;
+            tbxHastaDemoraCliente.Enabled = true;
+            tbxMinutosSimularB.Enabled = true;
+            tbxCorteA.Enabled = false;
+        }
     }
 }
 

@@ -77,9 +77,6 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tbxCorteA = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tbxCorteB = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -87,7 +84,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).BeginInit();
             this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -114,6 +110,7 @@
             this.rbCasoB.TabStop = true;
             this.rbCasoB.Text = "Caso B";
             this.rbCasoB.UseVisualStyleBackColor = true;
+            this.rbCasoB.CheckedChanged += new System.EventHandler(this.rbCasoB_CheckedChanged_1);
             // 
             // rbCasoA
             // 
@@ -366,7 +363,7 @@
             this.acClientesFinalizados,
             this.tiempoOciosoCaja1,
             this.CantCaja2Usada});
-            this.dgv_datos.Location = new System.Drawing.Point(3, 201);
+            this.dgv_datos.Location = new System.Drawing.Point(3, 144);
             this.dgv_datos.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_datos.Name = "dgv_datos";
             this.dgv_datos.RowHeadersWidth = 51;
@@ -528,70 +525,38 @@
             // 
             this.groupBox6.Controls.Add(this.label10);
             this.groupBox6.Controls.Add(this.tbxCorteA);
-            this.groupBox6.Location = new System.Drawing.Point(246, 132);
+            this.groupBox6.Location = new System.Drawing.Point(800, 81);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(140, 56);
+            this.groupBox6.Size = new System.Drawing.Size(148, 56);
             this.groupBox6.TabIndex = 32;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Condición de corte A";
+            this.groupBox6.Text = "Corte A";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 31);
+            this.label10.Location = new System.Drawing.Point(4, 31);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 13);
+            this.label10.Size = new System.Drawing.Size(83, 13);
             this.label10.TabIndex = 15;
-            this.label10.Text = "Cant. clientes";
+            this.label10.Text = "Clientes (At. fin.)";
             // 
             // tbxCorteA
             // 
-            this.tbxCorteA.Location = new System.Drawing.Point(86, 28);
+            this.tbxCorteA.Location = new System.Drawing.Point(91, 28);
             this.tbxCorteA.Margin = new System.Windows.Forms.Padding(2);
             this.tbxCorteA.Name = "tbxCorteA";
-            this.tbxCorteA.Size = new System.Drawing.Size(47, 20);
+            this.tbxCorteA.Size = new System.Drawing.Size(53, 20);
             this.tbxCorteA.TabIndex = 15;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.label9);
-            this.groupBox7.Controls.Add(this.tbxCorteB);
-            this.groupBox7.Location = new System.Drawing.Point(402, 132);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Size = new System.Drawing.Size(140, 56);
-            this.groupBox7.TabIndex = 33;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Condición de corte B";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 31);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Reloj (min)";
-            // 
-            // tbxCorteB
-            // 
-            this.tbxCorteB.Location = new System.Drawing.Point(86, 28);
-            this.tbxCorteB.Margin = new System.Windows.Forms.Padding(2);
-            this.tbxCorteB.Name = "tbxCorteB";
-            this.tbxCorteB.Size = new System.Drawing.Size(47, 20);
-            this.tbxCorteB.TabIndex = 15;
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 433);
-            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox5);
@@ -617,8 +582,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -674,9 +637,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tbxCorteA;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox tbxCorteB;
     }
 }
 
