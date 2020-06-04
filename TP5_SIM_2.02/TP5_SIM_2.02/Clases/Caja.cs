@@ -22,9 +22,9 @@ namespace TP5_SIM_2._02.Clases
 
             int nroCaja = 1;
             double tiempoFinAtencion = 0;
-            double finAtencion = 0;
+            double finAtencion = 100;
             string estado = "";
-            int cola = 0;
+          
 
         }
 
@@ -32,5 +32,18 @@ namespace TP5_SIM_2._02.Clases
         public int nroCaja, cola;
         public Queue<Cliente> cliente;
         public string estado;
+
+        public int getTamCola()
+        {
+            int x = 0;
+            x = this.cliente.Count;
+            return x;
+        }
+
+        public double getfinAtencion()
+        {
+            return finAtencion;
+        }
     }
+    
 }

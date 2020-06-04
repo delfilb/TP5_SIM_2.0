@@ -66,7 +66,7 @@ namespace TP5_SIM_2._02.Formularios
 
             double tiempo_ocioso_caja_1;
             
-            int cant_caja_2_usada;
+            int cant_caja_2_usada = 0;
             double rnd_pago = 0;
             double rnd_fin_at = 0;
             double tiempo_fin_atencion = 0;
@@ -79,6 +79,20 @@ namespace TP5_SIM_2._02.Formularios
             int x = 0;
             double reloj = 0;
 
+            int getNumCaja(Cliente c)
+            {
+                int numCaja = 0;
+                if(caja1.cliente.Contains<Cliente>(c))
+                {
+                    numCaja = 1;
+                }
+                else
+                {
+                    numCaja = 2;
+                }
+                return numCaja;
+            }
+
 
             //Este metodo sirve para calcular el final de atención teniendo en cuenta
             //la forma de pago con efectivo y con tarjeta
@@ -89,9 +103,9 @@ namespace TP5_SIM_2._02.Formularios
                 double fin_at;
                 rnd_fin_at = random.NextDouble();
 
-                //Cami, acá te corregí la fórmula porque habias puesto demora_caja_desde * ...
+                // X = A + RND (B - A)
                 //Lo correcto era sumarle la media
-                tiempo_fin_atencion = media + rnd_fin_at * (demoraCajaHasta - demoraCajaDesde);
+                tiempo_fin_atencion = demoraCajaDesde + rnd_fin_at * (demoraCajaHasta - demoraCajaDesde);
                 rnd_pago = random.NextDouble();
                 if (rnd_pago < 0.5)
                 {
@@ -115,7 +129,8 @@ namespace TP5_SIM_2._02.Formularios
             // i = filas
             // caso A
             if (rbCasoA.Checked)
-            { //for para cada cliente el id = x y le vamos sumando 1 por cada iteración.
+            { //for para cada cliente el id = x y le vamos sumando 1 por cada iteración. 
+                // el 11 debería ingresarse por parámetro
                 for (int i = 0; i < 11; i++)
                 {
 
@@ -128,13 +143,13 @@ namespace TP5_SIM_2._02.Formularios
                         caja1.estado = "Libre";
                         nombre_evento = "Inicialización";
                         
-                        dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_fin_at, fin_at_caja_1, rnd_pago, metodo_pago, fin_at_caja_1, 0 /*Acá le puse 0 porque la caja 2 aun no atiende*/ , caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.cola.ToString(), caja2.estado, caja2.cola.ToString());
+                        dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                     }
                     else
                     {
-                        if (prox_llegada < fin_at_caja_1 && prox_llegada < fin_at_caja_2)
+                       if (prox_llegada < caja1.getfinAtencion() && prox_llegada < caja2.getfinAtencion())
                         {
-                            Cliente cl = new Cliente();
+                            Cliente cl= new Cliente();
 
                             
                             cl.id = x + 1;
@@ -143,11 +158,12 @@ namespace TP5_SIM_2._02.Formularios
                             rnd_lleg_cliente = random.NextDouble();
                             tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                             prox_llegada = tiempo_entre_llegadas;
+
                             if (caja1.estado == "Libre")
                             {
                                 cl.estado = "SA";
                                 caja1.estado = "Ocupado";
-                                fin_at_caja_1 = fin_atencion();
+                                caja1.finAtencion = fin_atencion();
                                 caja1.cliente.Enqueue(cl);
 
                             }
@@ -157,7 +173,7 @@ namespace TP5_SIM_2._02.Formularios
                                 if (caja2.estado == "Cerrado")
                                 {
 
-                                    if (caja1.cola < 4)
+                                    if (caja1.getTamCola() < 4)
                                     {
                                         //agrega el cliente a la cola de la caja 1, le cambia su estado
 
@@ -165,16 +181,41 @@ namespace TP5_SIM_2._02.Formularios
                                         cl.numCaja = 1;
                                         caja1.cliente.Enqueue(cl);
 
-
-
+                                        
                                     }
                                     else
-                                    {
-
-                                        caja2.estado = "Ocupado";
-                                        cl.estado = "SA";
-                                        cl.numCaja = 2;
+                                    {                                                                                                                  
+                                        //obtengo los dos últimos de la caja 1 y los pongo en la caja 2, y luego el cliente que llegó último
+                                        Cliente clpos3 = new Cliente();
+                                        Cliente clpos4 = new Cliente();
+                                        clpos4 = caja1.cliente.Last<Cliente>();
+                                        clpos3 = caja1.cliente.Last<Cliente>();
+                                                                           
+                                        caja2.cliente.Enqueue(clpos3);
+                                        caja2.cliente.Enqueue(clpos4);
                                         caja2.cliente.Enqueue(cl);
+
+                                        //acutualiza estados
+                                        caja2.estado = "Ocupado";
+                                        clpos3.estado = "SA";
+                                        cl.estado = "EA";
+                                        clpos3.numCaja = 2;
+                                        clpos4.numCaja = 2;
+                                        cl.numCaja = 2;
+
+                                        //Invierto la cola de la caja1 para sacar los dos últimos elementos... no supe cómo borrar con el índice jujuju
+                                        caja1.cliente.Reverse<Cliente>();
+                                        caja1.cliente.Dequeue();
+                                        caja1.cliente.Dequeue();
+
+                                        caja1.cliente.Reverse<Cliente>();
+
+                                        //fin de atención para el cliente que empezó a atender la caja 2
+                                        caja2.finAtencion = fin_atencion();
+
+                                        // contador caja 2 usada
+                                        cant_caja_2_usada = cant_caja_2_usada + 1;
+
 
 
                                         /* 
@@ -193,7 +234,7 @@ namespace TP5_SIM_2._02.Formularios
                                 // la caja 2 estaría en Ocupado (No tiene estado Libre, porque cuando se desocupa cierra)
                                 else
                                 {
-                                    if (caja1.cola <= caja2.cola)
+                                    if (caja1.getTamCola() <= caja2.getTamCola())
                                     {
                                         //agregar a cola 1
                                         cl.estado = "EA";
@@ -216,13 +257,17 @@ namespace TP5_SIM_2._02.Formularios
                                 }
 
                             }
+                            dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                         }
-                        if (fin_at_caja_1 < prox_llegada && fin_at_caja_1 < fin_at_caja_2)
+                        if (caja1.getfinAtencion() < prox_llegada && caja1.getfinAtencion() < caja2.getfinAtencion())
                         {
-                            reloj = fin_at_caja_1;
+
+                            reloj = caja1.finAtencion;
                             //acumulador de cantidad de clientes con atencion finalizada
                             acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
-                            
+                            //quitar el cliente que se va de la cola
+                            caja1.cliente.Dequeue();
+
                             // actualizar AC tiempo de atención y contador clientes con atención finalizada
                             //eliminar al cliente que se va
                             if (caja1.cola == 0)
@@ -233,39 +278,51 @@ namespace TP5_SIM_2._02.Formularios
                             else
                             {
                                 //estado de cliente a SA
+                                Cliente c = new Cliente();
+                                c = caja1.cliente.First<Cliente>();
+                                c.estado = "SA";
                                 caja1.estado = "Ocupado";
-                                fin_at_caja_1 = fin_atencion();   //fin de atención del nuevo cliente atendido
+                                caja1.finAtencion = fin_atencion();   //fin de atención del nuevo cliente atendido
 
                             }
+                            dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                         }
                         // Cami, acá te cambié esto porque sino nunca iba a entrar a este if que habías puesto,
                         // tiene que estar afuera
-                        if (fin_at_caja_2 < prox_llegada && fin_at_caja_2 < fin_at_caja_1)
+                        if (caja2.getfinAtencion() < prox_llegada && caja2.getfinAtencion() < caja1.getfinAtencion())
                         {
-                            reloj = fin_at_caja_2;
+                            reloj = caja2.finAtencion;
                             //acumulador de cantidad de clientes con atencion finalizada
                             acum_clientes_at_finalizada = acum_clientes_at_finalizada + 1;
+                            //quitar el cliente que se va de la cola
+                            caja2.cliente.Dequeue();
 
                             // actualizar AC tiempo de atención y contador clientes con atención finalizada
-                            //elimina al cliente que se va
+                            //eliminar al cliente que se va
                             if (caja2.cola == 0)
-                                {
-                                    caja2.estado = "Cerrado";
-                                }
-                                else
-                                {
-                                    //estado de cliente a SA
-                                    caja2.estado = "Ocupado";
-                                    fin_at_caja_2 = fin_atencion();   //fin de atención del nuevo cliente atendido
+                            {
+                                caja2.estado = "Cerrado";
 
-                                }
-                            
+                            }
+                            else
+                            {
+                                //estado de cliente a SA
+                                
+                                Cliente c = new Cliente();
+                                c = caja2.cliente.First<Cliente>();
+                                c.estado = "SA";
+                                caja2.estado = "Ocupado";
+                                caja2.finAtencion = fin_atencion();   //fin de atención del nuevo cliente atendido
+
+                            }
+                            dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
+
                         }
+
                     }
+                    
                 }
             }
-
-
         }
 
         private void rbCasoA_CheckedChanged(object sender, EventArgs e)
@@ -293,6 +350,11 @@ namespace TP5_SIM_2._02.Formularios
             
 
             dgv_datos.DataSource = null;
+
+        }
+
+        private void dgv_datos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

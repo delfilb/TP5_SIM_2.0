@@ -26,5 +26,8 @@ namespace TP5_SIM_2._02.Clases
         public Boolean finalizado;
         public int id, numCaja;
 
+        
+
     }
-}
+
+    }
