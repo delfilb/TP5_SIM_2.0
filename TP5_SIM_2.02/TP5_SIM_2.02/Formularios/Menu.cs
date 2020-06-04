@@ -59,7 +59,28 @@ namespace TP5_SIM_2._02.Formularios
             if (caja1.estado != "Ocupado")
             {
                 cli.estado = "SA";
+                cli.numCaja = 1;
                 caja1.estado = "Ocupado";
+            }
+            else if (caja1.getTamCola() > 4)
+            {
+                if (caja2.estado == "Cerrado")
+                {
+                    cli.estado = "SA";
+                    cli.numCaja = 2;
+                    caja2.estado = "Ocupado";
+                    if ()
+                    {
+
+                    }
+                    caja1.clientes.Enqueue.re
+                }
+                else if (caja1.getTamCola() <= caja2.getTamCola())
+                {
+                    cli.estado = "EA";
+                    cli.numCaja = 1;
+                    caja1.clientes.Enqueue(cli);
+                }
             }
             else if (caja1.getTamCola() < caja2.getTamCola())
             {
@@ -82,25 +103,27 @@ namespace TP5_SIM_2._02.Formularios
             // X = A + RND (B - A)
             double tiempo_fin_atencion = demoraCajaDesde + rnd_fin_at * (demoraCajaHasta - demoraCajaDesde);
             double rnd_pago = random.NextDouble();
+            double fin_at = 0;
             if (rnd_pago < 0.5)
             {
                 string metodo_pago = "Efectivo";
-                double fin_at = tiempo_fin_atencion + reloj;
+                fin_at = tiempo_fin_atencion + reloj;
 
             }
             //tarjeta
             else
             {
                 string metodo_pago = "Tarjeta";
-                double fin_at = tiempo_fin_atencion + 2 + reloj;
+                fin_at = tiempo_fin_atencion + 2 + reloj;
 
             }
             // acumulador de tiempo de atencion
-            double acum_tiempo_at = acum_tiempo_at + fin_at;
+            double acum_tiempo_at = 0;
+            acum_tiempo_at = acum_tiempo_at + fin_at;
             return fin_at;
         }
 
-        public Cliente menorGondolas()
+        public Cliente menorGondolas(Cliente cli_gondolas)
         {      
             if (cli_gondolas.Count > 0)
             {
@@ -111,7 +134,7 @@ namespace TP5_SIM_2._02.Formularios
                 }
                     menor = tiempos.Min();
                     return cli_gondolas.Find(c => c.fin_gondola == menor);
-                }
+                } 
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)
@@ -381,7 +404,7 @@ namespace TP5_SIM_2._02.Formularios
                         
                         dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                     }
-                    if (prox_llegada < caja1.finAtencion && prox_llegada < caja2.finAtencion && prox_llegada < menorGondolas(caja1, caja2).fin_gondola) //comprar también con los fin_gondola 
+                    if (prox_llegada < caja1.finAtencion && prox_llegada < caja2.finAtencion && prox_llegada < menorGondolas(/*lista de clientes*/).fin_gondola) //comprar también con los fin_gondola 
                     {
                         Cliente cl = new Cliente();
 
@@ -393,7 +416,7 @@ namespace TP5_SIM_2._02.Formularios
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
-                        cl.fin_gondola = fin_gondola();
+                        cl.fin_gondola = fin_gondola() ;
                         cl.estado = "RG";
                         cli_gondolas.Add(cl);
                     }
