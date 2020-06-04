@@ -53,7 +53,6 @@
             this.tbxDesdeFilas = new System.Windows.Forms.TextBox();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.dgv_datos = new System.Windows.Forms.DataGridView();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.evento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reloj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rndTiempoLlegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,12 +73,21 @@
             this.acClientesFinalizados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoOciosoCaja1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantCaja2Usada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbxCorteA = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbxCorteB = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -87,9 +95,9 @@
             this.groupBox5.Controls.Add(this.rbCasoB);
             this.groupBox5.Controls.Add(this.rbCasoA);
             this.groupBox5.Location = new System.Drawing.Point(246, 31);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox5.Size = new System.Drawing.Size(95, 97);
             this.groupBox5.TabIndex = 24;
             this.groupBox5.TabStop = false;
@@ -99,7 +107,7 @@
             // 
             this.rbCasoB.AutoSize = true;
             this.rbCasoB.Location = new System.Drawing.Point(20, 63);
-            this.rbCasoB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbCasoB.Margin = new System.Windows.Forms.Padding(2);
             this.rbCasoB.Name = "rbCasoB";
             this.rbCasoB.Size = new System.Drawing.Size(59, 17);
             this.rbCasoB.TabIndex = 19;
@@ -111,7 +119,7 @@
             // 
             this.rbCasoA.AutoSize = true;
             this.rbCasoA.Location = new System.Drawing.Point(20, 28);
-            this.rbCasoA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbCasoA.Margin = new System.Windows.Forms.Padding(2);
             this.rbCasoA.Name = "rbCasoA";
             this.rbCasoA.Size = new System.Drawing.Size(59, 17);
             this.rbCasoA.TabIndex = 18;
@@ -129,9 +137,9 @@
             this.groupBox3.Controls.Add(this.tbxHastaDemoraCliente);
             this.groupBox3.Controls.Add(this.tbxDesdeDemoraCliente);
             this.groupBox3.Location = new System.Drawing.Point(586, 31);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(203, 97);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
@@ -150,7 +158,7 @@
             // tbxMinutosSimularB
             // 
             this.tbxMinutosSimularB.Location = new System.Drawing.Point(86, 74);
-            this.tbxMinutosSimularB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxMinutosSimularB.Margin = new System.Windows.Forms.Padding(2);
             this.tbxMinutosSimularB.Name = "tbxMinutosSimularB";
             this.tbxMinutosSimularB.Size = new System.Drawing.Size(108, 20);
             this.tbxMinutosSimularB.TabIndex = 18;
@@ -178,7 +186,7 @@
             // tbxHastaDemoraCliente
             // 
             this.tbxHastaDemoraCliente.Location = new System.Drawing.Point(86, 46);
-            this.tbxHastaDemoraCliente.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxHastaDemoraCliente.Margin = new System.Windows.Forms.Padding(2);
             this.tbxHastaDemoraCliente.Name = "tbxHastaDemoraCliente";
             this.tbxHastaDemoraCliente.Size = new System.Drawing.Size(108, 20);
             this.tbxHastaDemoraCliente.TabIndex = 16;
@@ -186,7 +194,7 @@
             // tbxDesdeDemoraCliente
             // 
             this.tbxDesdeDemoraCliente.Location = new System.Drawing.Point(86, 19);
-            this.tbxDesdeDemoraCliente.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxDesdeDemoraCliente.Margin = new System.Windows.Forms.Padding(2);
             this.tbxDesdeDemoraCliente.Name = "tbxDesdeDemoraCliente";
             this.tbxDesdeDemoraCliente.Size = new System.Drawing.Size(108, 20);
             this.tbxDesdeDemoraCliente.TabIndex = 15;
@@ -196,9 +204,9 @@
             this.groupBox4.Controls.Add(this.tbxMedia);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Location = new System.Drawing.Point(800, 31);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(144, 46);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
@@ -207,7 +215,7 @@
             // tbxMedia
             // 
             this.tbxMedia.Location = new System.Drawing.Point(58, 21);
-            this.tbxMedia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxMedia.Margin = new System.Windows.Forms.Padding(2);
             this.tbxMedia.Name = "tbxMedia";
             this.tbxMedia.Size = new System.Drawing.Size(70, 20);
             this.tbxMedia.TabIndex = 1;
@@ -229,9 +237,9 @@
             this.groupBox2.Controls.Add(this.tbxHastaDemoraCaja);
             this.groupBox2.Controls.Add(this.tbxDesdeDemoraCaja);
             this.groupBox2.Location = new System.Drawing.Point(366, 31);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(203, 97);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
@@ -260,7 +268,7 @@
             // tbxHastaDemoraCaja
             // 
             this.tbxHastaDemoraCaja.Location = new System.Drawing.Point(86, 63);
-            this.tbxHastaDemoraCaja.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxHastaDemoraCaja.Margin = new System.Windows.Forms.Padding(2);
             this.tbxHastaDemoraCaja.Name = "tbxHastaDemoraCaja";
             this.tbxHastaDemoraCaja.Size = new System.Drawing.Size(108, 20);
             this.tbxHastaDemoraCaja.TabIndex = 16;
@@ -268,7 +276,7 @@
             // tbxDesdeDemoraCaja
             // 
             this.tbxDesdeDemoraCaja.Location = new System.Drawing.Point(86, 28);
-            this.tbxDesdeDemoraCaja.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxDesdeDemoraCaja.Margin = new System.Windows.Forms.Padding(2);
             this.tbxDesdeDemoraCaja.Name = "tbxDesdeDemoraCaja";
             this.tbxDesdeDemoraCaja.Size = new System.Drawing.Size(108, 20);
             this.tbxDesdeDemoraCaja.TabIndex = 15;
@@ -280,9 +288,9 @@
             this.groupBox1.Controls.Add(this.tbxHastaFilas);
             this.groupBox1.Controls.Add(this.tbxDesdeFilas);
             this.groupBox1.Location = new System.Drawing.Point(20, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(203, 97);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
@@ -311,7 +319,7 @@
             // tbxHastaFilas
             // 
             this.tbxHastaFilas.Location = new System.Drawing.Point(86, 63);
-            this.tbxHastaFilas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxHastaFilas.Margin = new System.Windows.Forms.Padding(2);
             this.tbxHastaFilas.Name = "tbxHastaFilas";
             this.tbxHastaFilas.Size = new System.Drawing.Size(108, 20);
             this.tbxHastaFilas.TabIndex = 16;
@@ -319,7 +327,7 @@
             // tbxDesdeFilas
             // 
             this.tbxDesdeFilas.Location = new System.Drawing.Point(86, 28);
-            this.tbxDesdeFilas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbxDesdeFilas.Margin = new System.Windows.Forms.Padding(2);
             this.tbxDesdeFilas.Name = "tbxDesdeFilas";
             this.tbxDesdeFilas.Size = new System.Drawing.Size(108, 20);
             this.tbxDesdeFilas.TabIndex = 15;
@@ -327,7 +335,7 @@
             // btnGenerar
             // 
             this.btnGenerar.Location = new System.Drawing.Point(963, 102);
-            this.btnGenerar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(71, 25);
             this.btnGenerar.TabIndex = 22;
@@ -358,25 +366,14 @@
             this.acClientesFinalizados,
             this.tiempoOciosoCaja1,
             this.CantCaja2Usada});
-            this.dgv_datos.Location = new System.Drawing.Point(20, 129);
-            this.dgv_datos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgv_datos.Location = new System.Drawing.Point(3, 201);
+            this.dgv_datos.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_datos.Name = "dgv_datos";
             this.dgv_datos.RowHeadersWidth = 51;
             this.dgv_datos.RowTemplate.Height = 24;
-            this.dgv_datos.Size = new System.Drawing.Size(1014, 293);
+            this.dgv_datos.Size = new System.Drawing.Size(1014, 278);
             this.dgv_datos.TabIndex = 21;
             this.dgv_datos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_datos_CellContentClick);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(963, 66);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(71, 32);
-            this.btnLimpiar.TabIndex = 28;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // evento
             // 
@@ -516,11 +513,86 @@
             this.CantCaja2Usada.Name = "CantCaja2Usada";
             this.CantCaja2Usada.Width = 125;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(963, 66);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(71, 32);
+            this.btnLimpiar.TabIndex = 28;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label10);
+            this.groupBox6.Controls.Add(this.tbxCorteA);
+            this.groupBox6.Location = new System.Drawing.Point(246, 132);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox6.Size = new System.Drawing.Size(140, 56);
+            this.groupBox6.TabIndex = 32;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Condición de corte A";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(11, 31);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 13);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Cant. clientes";
+            // 
+            // tbxCorteA
+            // 
+            this.tbxCorteA.Location = new System.Drawing.Point(86, 28);
+            this.tbxCorteA.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxCorteA.Name = "tbxCorteA";
+            this.tbxCorteA.Size = new System.Drawing.Size(47, 20);
+            this.tbxCorteA.TabIndex = 15;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label9);
+            this.groupBox7.Controls.Add(this.tbxCorteB);
+            this.groupBox7.Location = new System.Drawing.Point(402, 132);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox7.Size = new System.Drawing.Size(140, 56);
+            this.groupBox7.TabIndex = 33;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Condición de corte B";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 31);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Reloj (min)";
+            // 
+            // tbxCorteB
+            // 
+            this.tbxCorteB.Location = new System.Drawing.Point(86, 28);
+            this.tbxCorteB.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxCorteB.Name = "tbxCorteB";
+            this.tbxCorteB.Size = new System.Drawing.Size(47, 20);
+            this.tbxCorteB.TabIndex = 15;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 433);
+            this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
@@ -529,7 +601,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.dgv_datos);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Menu";
             this.Text = "Form1";
             this.groupBox5.ResumeLayout(false);
@@ -543,6 +615,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -595,6 +671,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn acClientesFinalizados;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoOciosoCaja1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantCaja2Usada;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbxCorteA;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbxCorteB;
     }
 }
 

@@ -48,6 +48,8 @@ namespace TP5_SIM_2._02.Formularios
             int media = int.Parse(tbxMedia.Text);
             int demoraCajaDesde = int.Parse(tbxDesdeDemoraCaja.Text);
             int demoraCajaHasta = int.Parse(tbxHastaDemoraCaja.Text);
+            int corteA = int.Parse(tbxCorteA.Text);
+            int corteB = int.Parse(tbxCorteB.Text);
 
 
             string nombre_evento = "";
@@ -58,7 +60,7 @@ namespace TP5_SIM_2._02.Formularios
             int cola_caja_1 = 0;
             string estado_caja_2 = "";
             int cola_caja_2 = 0;
-            int cant_clientes_finalizados = 0;
+           
 
             double acum_tiempo_at = 0;
             double acum_tiempo_ocioso_caja1 = 0;
@@ -76,7 +78,7 @@ namespace TP5_SIM_2._02.Formularios
             double prox_llegada = 0;
 
             // El contador de x debería ser 0 para que el id del primer cliente no sea 2
-            int x = 0;
+            int x = -1;   // para que entre en inicialización;
             double reloj = 0;
 
             int getNumCaja(Cliente c)
@@ -131,17 +133,18 @@ namespace TP5_SIM_2._02.Formularios
             if (rbCasoA.Checked)
             { //for para cada cliente el id = x y le vamos sumando 1 por cada iteración. 
                 // el 11 debería ingresarse por parámetro
-                for (int i = 0; i < 11; i++)
+                while(acum_clientes_at_finalizada<=corteA)
                 {
 
                     //evento de inicialización
-                    if (i == 0)
+                    if (x == -1)
                     {
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
                         caja1.estado = "Libre";
                         nombre_evento = "Inicialización";
+                        x = 0;
                         
                         dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' '  + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                     }
@@ -357,6 +360,8 @@ namespace TP5_SIM_2._02.Formularios
         {
 
         }
+
+       
     }
 }
 
