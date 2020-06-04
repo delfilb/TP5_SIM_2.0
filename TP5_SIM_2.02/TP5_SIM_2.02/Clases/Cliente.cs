@@ -18,10 +18,12 @@ namespace TP5_SIM_2._02.Clases
             string metodoPago = "";
             Boolean finalizado = false;
             int numCaja = 1;
-            double tiempo_fin_gondola = 0;
+            double fin_gondola = 0;
+            double hora_llegada = 0;
         }
 
-        public double tiempoEntreLLegadas, tiempoAtencionCliente, probMetodoPago, tiempo_fin_gondola;
+       
+        public double tiempoEntreLLegadas, tiempoAtencionCliente, probMetodoPago, fin_gondola, hora_llegada;
         public string estado, metodoPago;
         public Boolean finalizado;
         public int id, numCaja;

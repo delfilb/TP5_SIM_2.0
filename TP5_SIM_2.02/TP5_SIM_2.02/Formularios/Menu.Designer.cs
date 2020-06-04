@@ -33,7 +33,7 @@
             this.rbCasoA = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.tbxMinutosSimularB = new System.Windows.Forms.TextBox();
+            this.tbxCorteB = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tbxHastaDemoraCliente = new System.Windows.Forms.TextBox();
@@ -128,7 +128,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.tbxMinutosSimularB);
+            this.groupBox3.Controls.Add(this.tbxCorteB);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.tbxHastaDemoraCliente);
@@ -152,13 +152,13 @@
             this.label8.TabIndex = 19;
             this.label8.Text = "Minutos";
             // 
-            // tbxMinutosSimularB
+            // tbxCorteB
             // 
-            this.tbxMinutosSimularB.Location = new System.Drawing.Point(86, 74);
-            this.tbxMinutosSimularB.Margin = new System.Windows.Forms.Padding(2);
-            this.tbxMinutosSimularB.Name = "tbxMinutosSimularB";
-            this.tbxMinutosSimularB.Size = new System.Drawing.Size(108, 20);
-            this.tbxMinutosSimularB.TabIndex = 18;
+            this.tbxCorteB.Location = new System.Drawing.Point(86, 74);
+            this.tbxCorteB.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxCorteB.Name = "tbxCorteB";
+            this.tbxCorteB.Size = new System.Drawing.Size(108, 20);
+            this.tbxCorteB.TabIndex = 18;
             // 
             // label6
             // 
@@ -613,7 +613,7 @@
         private System.Windows.Forms.DataGridView dgv_datos;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox tbxMinutosSimularB;
+        private System.Windows.Forms.TextBox tbxCorteB;
         private System.Windows.Forms.DataGridViewTextBoxColumn evento;
         private System.Windows.Forms.DataGridViewTextBoxColumn reloj;
         private System.Windows.Forms.DataGridViewTextBoxColumn rndTiempoLlegada;
