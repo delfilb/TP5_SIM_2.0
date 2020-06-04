@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -67,7 +68,7 @@ namespace TP5_SIM_2._02.Formularios
 
             foreach (Cliente cli in pilaClientes)
             {
-                colaClientes.Enqueue();
+                colaClientes.Enqueue(cli);
             }
             return colaClientes;
         }
@@ -150,17 +151,19 @@ namespace TP5_SIM_2._02.Formularios
         }
 
         public Cliente menorGondolas(List<Cliente> cli_gondolas)
-        {      
+        {
+            double menor = 0;
             if (cli_gondolas.Count > 0)
             {
                 List<double> tiempos = new List<double>();
-                for (int i = 0; i < cli_gondolas.Count; i++)
+                foreach(Cliente cli in cli_gondolas)
                 {
                     tiempos.Add(cli.fin_gondola);
                 }
-                    menor = tiempos.Min();
-                    return cli_gondolas.Find(c => c.fin_gondola == menor);
-                } 
+                    menor = tiempos.Min();       
+                }
+            return cli_gondolas.Find(c => c.fin_gondola == menor);
+
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)
@@ -442,7 +445,7 @@ namespace TP5_SIM_2._02.Formularios
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
-                        cl.fin_gondola = fin_gondola() ;
+                        cl.fin_gondola = fin_gondola(caja1, caja2);
                         cl.estado = "RG";
                         cli_gondolas.Add(cl);
                     }
