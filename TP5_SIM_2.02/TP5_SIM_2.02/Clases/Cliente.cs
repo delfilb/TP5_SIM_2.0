@@ -8,28 +8,16 @@ namespace TP5_SIM_2._02.Clases
 {
     public class Cliente
     {
-        public Cliente()
-        {
-            int id = 1;
-            double tiempoEntreLLegadas = 0;
-            double tiempoAtencionCliente = 0;
-            string estado = "";
-            double probMetodoPago = 0;
-            string metodoPago = "";
-            Boolean finalizado = false;
-            int numCaja = 1;
-            double fin_gondola = 0;
-            double hora_llegada = 0;
-        }
+        public int id { get; set; }
+        public double tiempoEntreLLegadas { get; set; }
+        public double tiempoAtencionCliente { get; set; }
+        public string estado { get; set; }
+        public int numCaja { get; set; }
+        public double fin_gondola { get; set; }
+        public double hora_llegada { get; set; }
 
-       
-        public double tiempoEntreLLegadas, tiempoAtencionCliente, probMetodoPago, fin_gondola, hora_llegada;
-        public string estado, metodoPago;
-        public Boolean finalizado;
-        public int id, numCaja;
 
-        
+
 
     }
-
-    }
+}

@@ -556,7 +556,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 433);
+            this.ClientSize = new System.Drawing.Size(1063, 450);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.groupBox5);

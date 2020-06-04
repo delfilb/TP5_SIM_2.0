@@ -8,42 +8,23 @@ namespace TP5_SIM_2._02.Clases
 {
     public class Caja
     {
-        public Caja()
-        {
-            //el nroCaja es como el id de la caja. Puede ser 1 o 2.
-            /*el estado de la caja, dependiendo de si es de la 1 o 2 puede ser
-             para caja1 {libre;ocupado} caja2 {cerrado; ocupado}
-            La cola hace referencia a la cantidad de elementos que se tienen en el vector
-            clientes - 1
-            la queue clientes lo que hace es guardar la instancia de los objetos clientes que
-            vayan llegando a cada caja correspondientemente
-             */
-
-
-            int nroCaja = 1;
-            double tiempoFinAtencion = 0;
-            double finAtencion = 100;
-            string estado = "";
-          
-
-        }
-
-        public double tiempoFinAtencion, finAtencion;
-        public int nroCaja, cola;
-        public Queue<Cliente> cliente;
-        public string estado;
+        
+        public double tiempoFinAtencion { get; set; }
+        public double finAtencion { get; set; }
+        public int nroCaja { get; set; }
+        // el atributo clientes guarda los clientes en la cola mas el que esta atendiendo
+        public Queue<Cliente> clientes { get; set; }
+        public string estado { get; set; }
 
         public int getTamCola()
         {
             int x = 0;
-            x = this.cliente.Count;
-            return x;
+            x = this.clientes.Count;
+            return x-1;
         }
 
-        public double getfinAtencion()
-        {
-            return finAtencion;
-        }
+        
+        
     }
     
 }
