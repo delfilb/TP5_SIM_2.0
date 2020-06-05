@@ -46,21 +46,35 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbxHastaDemoraCaja = new System.Windows.Forms.TextBox();
             this.tbxDesdeDemoraCaja = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbxHastaFilas = new System.Windows.Forms.TextBox();
-            this.tbxDesdeFilas = new System.Windows.Forms.TextBox();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.dgv_datos = new System.Windows.Forms.DataGridView();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbxCorteA = new System.Windows.Forms.TextBox();
+            this.txtIteraciones = new System.Windows.Forms.TextBox();
+            this.tbxDesde = new System.Windows.Forms.TextBox();
+            this.tbxHasta = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblPromedioAtencion = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblPromedioOcioso = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblPromedioPermanencia = new System.Windows.Forms.Label();
             this.evento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reloj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rndTiempoLlegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoEntreLlegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.proxLLegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rndGondola = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tiempoGondola = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rndTiempoFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoAtencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoFinAtencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rndMetodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.metodoPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.finAt1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,15 +87,11 @@
             this.acClientesFinalizados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoOciosoCaja1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantCaja2Usada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbxCorteA = new System.Windows.Forms.TextBox();
+            this.tiempoPermanencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.SuspendLayout();
@@ -145,12 +155,12 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 74);
+            this.label8.Location = new System.Drawing.Point(4, 78);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.Size = new System.Drawing.Size(80, 13);
             this.label8.TabIndex = 19;
-            this.label8.Text = "Minutos";
+            this.label8.Text = "Cortar al minuto";
             // 
             // tbxCorteB
             // 
@@ -230,6 +240,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.tbxHastaDemoraCaja);
             this.groupBox2.Controls.Add(this.tbxDesdeDemoraCaja);
@@ -240,17 +252,17 @@
             this.groupBox2.Size = new System.Drawing.Size(203, 97);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Demora Caja";
+            this.groupBox2.Text = "Demora en Caja";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 63);
+            this.label4.Location = new System.Drawing.Point(18, 65);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.Size = new System.Drawing.Size(17, 13);
             this.label4.TabIndex = 17;
-            this.label4.Text = "Demora hasta";
+            this.label4.Text = "Y:";
             // 
             // label5
             // 
@@ -258,76 +270,25 @@
             this.label5.Location = new System.Drawing.Point(6, 30);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Demora desde";
+            this.label5.Text = "Entre:";
             // 
             // tbxHastaDemoraCaja
             // 
-            this.tbxHastaDemoraCaja.Location = new System.Drawing.Point(86, 63);
+            this.tbxHastaDemoraCaja.Location = new System.Drawing.Point(45, 60);
             this.tbxHastaDemoraCaja.Margin = new System.Windows.Forms.Padding(2);
             this.tbxHastaDemoraCaja.Name = "tbxHastaDemoraCaja";
-            this.tbxHastaDemoraCaja.Size = new System.Drawing.Size(108, 20);
+            this.tbxHastaDemoraCaja.Size = new System.Drawing.Size(60, 20);
             this.tbxHastaDemoraCaja.TabIndex = 16;
             // 
             // tbxDesdeDemoraCaja
             // 
-            this.tbxDesdeDemoraCaja.Location = new System.Drawing.Point(86, 28);
+            this.tbxDesdeDemoraCaja.Location = new System.Drawing.Point(45, 26);
             this.tbxDesdeDemoraCaja.Margin = new System.Windows.Forms.Padding(2);
             this.tbxDesdeDemoraCaja.Name = "tbxDesdeDemoraCaja";
-            this.tbxDesdeDemoraCaja.Size = new System.Drawing.Size(108, 20);
+            this.tbxDesdeDemoraCaja.Size = new System.Drawing.Size(60, 20);
             this.tbxDesdeDemoraCaja.TabIndex = 15;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.tbxHastaFilas);
-            this.groupBox1.Controls.Add(this.tbxDesdeFilas);
-            this.groupBox1.Location = new System.Drawing.Point(20, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(203, 97);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filas a mostrar";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 63);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Fila hasta";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Fila desde";
-            // 
-            // tbxHastaFilas
-            // 
-            this.tbxHastaFilas.Location = new System.Drawing.Point(86, 63);
-            this.tbxHastaFilas.Margin = new System.Windows.Forms.Padding(2);
-            this.tbxHastaFilas.Name = "tbxHastaFilas";
-            this.tbxHastaFilas.Size = new System.Drawing.Size(108, 20);
-            this.tbxHastaFilas.TabIndex = 16;
-            // 
-            // tbxDesdeFilas
-            // 
-            this.tbxDesdeFilas.Location = new System.Drawing.Point(86, 28);
-            this.tbxDesdeFilas.Margin = new System.Windows.Forms.Padding(2);
-            this.tbxDesdeFilas.Name = "tbxDesdeFilas";
-            this.tbxDesdeFilas.Size = new System.Drawing.Size(108, 20);
-            this.tbxDesdeFilas.TabIndex = 15;
             // 
             // btnGenerar
             // 
@@ -338,6 +299,7 @@
             this.btnGenerar.TabIndex = 22;
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.UseVisualStyleBackColor = true;
+            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // dgv_datos
             // 
@@ -348,9 +310,10 @@
             this.rndTiempoLlegada,
             this.tiempoEntreLlegada,
             this.proxLLegada,
+            this.rndGondola,
+            this.tiempoGondola,
             this.rndTiempoFin,
             this.tiempoAtencion,
-            this.tiempoFinAtencion,
             this.rndMetodoPago,
             this.metodoPago,
             this.finAt1,
@@ -362,7 +325,8 @@
             this.acTiempoFin,
             this.acClientesFinalizados,
             this.tiempoOciosoCaja1,
-            this.CantCaja2Usada});
+            this.CantCaja2Usada,
+            this.tiempoPermanencia});
             this.dgv_datos.Location = new System.Drawing.Point(3, 144);
             this.dgv_datos.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_datos.Name = "dgv_datos";
@@ -371,6 +335,179 @@
             this.dgv_datos.Size = new System.Drawing.Size(1014, 278);
             this.dgv_datos.TabIndex = 21;
             this.dgv_datos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_datos_CellContentClick);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(963, 66);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(71, 32);
+            this.btnLimpiar.TabIndex = 28;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label10);
+            this.groupBox6.Controls.Add(this.tbxCorteA);
+            this.groupBox6.Location = new System.Drawing.Point(800, 81);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox6.Size = new System.Drawing.Size(148, 56);
+            this.groupBox6.TabIndex = 32;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Promedio tiempo atención";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(4, 31);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 13);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "Nro de clientes:";
+            // 
+            // tbxCorteA
+            // 
+            this.tbxCorteA.Location = new System.Drawing.Point(91, 28);
+            this.tbxCorteA.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxCorteA.Name = "tbxCorteA";
+            this.tbxCorteA.Size = new System.Drawing.Size(53, 20);
+            this.tbxCorteA.TabIndex = 15;
+            // 
+            // txtIteraciones
+            // 
+            this.txtIteraciones.Location = new System.Drawing.Point(92, 31);
+            this.txtIteraciones.Margin = new System.Windows.Forms.Padding(2);
+            this.txtIteraciones.Name = "txtIteraciones";
+            this.txtIteraciones.Size = new System.Drawing.Size(110, 20);
+            this.txtIteraciones.TabIndex = 15;
+            // 
+            // tbxDesde
+            // 
+            this.tbxDesde.Location = new System.Drawing.Point(94, 61);
+            this.tbxDesde.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxDesde.Name = "tbxDesde";
+            this.tbxDesde.Size = new System.Drawing.Size(108, 20);
+            this.tbxDesde.TabIndex = 15;
+            // 
+            // tbxHasta
+            // 
+            this.tbxHasta.Location = new System.Drawing.Point(94, 93);
+            this.tbxHasta.Margin = new System.Windows.Forms.Padding(2);
+            this.tbxHasta.Name = "tbxHasta";
+            this.tbxHasta.Size = new System.Drawing.Size(108, 20);
+            this.tbxHasta.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(0, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Minutos a simular:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(46, 64);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Desde:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(46, 96);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "Hasta:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(109, 30);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(43, 13);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "minutos";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(109, 65);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "minutos";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 428);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(253, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "Promedio tiempo atención para los primeros clientes:";
+            // 
+            // lblPromedioAtencion
+            // 
+            this.lblPromedioAtencion.AutoSize = true;
+            this.lblPromedioAtencion.Location = new System.Drawing.Point(280, 428);
+            this.lblPromedioAtencion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPromedioAtencion.Name = "lblPromedioAtencion";
+            this.lblPromedioAtencion.Size = new System.Drawing.Size(0, 13);
+            this.lblPromedioAtencion.TabIndex = 15;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(484, 428);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(155, 13);
+            this.label15.TabIndex = 15;
+            this.label15.Text = "Promedio tiempo ocioso Caja 1:";
+            // 
+            // lblPromedioOcioso
+            // 
+            this.lblPromedioOcioso.AutoSize = true;
+            this.lblPromedioOcioso.Location = new System.Drawing.Point(643, 428);
+            this.lblPromedioOcioso.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPromedioOcioso.Name = "lblPromedioOcioso";
+            this.lblPromedioOcioso.Size = new System.Drawing.Size(0, 13);
+            this.lblPromedioOcioso.TabIndex = 15;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(23, 460);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(191, 13);
+            this.label14.TabIndex = 15;
+            this.label14.Text = "Promedio tiempo permanencia clientes:";
+            // 
+            // lblPromedioPermanencia
+            // 
+            this.lblPromedioPermanencia.AutoSize = true;
+            this.lblPromedioPermanencia.Location = new System.Drawing.Point(216, 460);
+            this.lblPromedioPermanencia.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPromedioPermanencia.Name = "lblPromedioPermanencia";
+            this.lblPromedioPermanencia.Size = new System.Drawing.Size(0, 13);
+            this.lblPromedioPermanencia.TabIndex = 15;
             // 
             // evento
             // 
@@ -405,6 +542,16 @@
             this.proxLLegada.HeaderText = "Próxima llegada";
             this.proxLLegada.Name = "proxLLegada";
             // 
+            // rndGondola
+            // 
+            this.rndGondola.HeaderText = "RND";
+            this.rndGondola.Name = "rndGondola";
+            // 
+            // tiempoGondola
+            // 
+            this.tiempoGondola.HeaderText = "Tiempo Góndola";
+            this.tiempoGondola.Name = "tiempoGondola";
+            // 
             // rndTiempoFin
             // 
             this.rndTiempoFin.HeaderText = "RND";
@@ -418,13 +565,6 @@
             this.tiempoAtencion.MinimumWidth = 6;
             this.tiempoAtencion.Name = "tiempoAtencion";
             this.tiempoAtencion.Width = 125;
-            // 
-            // tiempoFinAtencion
-            // 
-            this.tiempoFinAtencion.HeaderText = "Tiempo fin atencion";
-            this.tiempoFinAtencion.MinimumWidth = 6;
-            this.tiempoFinAtencion.Name = "tiempoFinAtencion";
-            this.tiempoFinAtencion.Width = 125;
             // 
             // rndMetodoPago
             // 
@@ -510,60 +650,34 @@
             this.CantCaja2Usada.Name = "CantCaja2Usada";
             this.CantCaja2Usada.Width = 125;
             // 
-            // btnLimpiar
+            // tiempoPermanencia
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(963, 66);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(71, 32);
-            this.btnLimpiar.TabIndex = 28;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label10);
-            this.groupBox6.Controls.Add(this.tbxCorteA);
-            this.groupBox6.Location = new System.Drawing.Point(800, 81);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(148, 56);
-            this.groupBox6.TabIndex = 32;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Corte A";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(4, 31);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(83, 13);
-            this.label10.TabIndex = 15;
-            this.label10.Text = "Clientes (At. fin.)";
-            // 
-            // tbxCorteA
-            // 
-            this.tbxCorteA.Location = new System.Drawing.Point(91, 28);
-            this.tbxCorteA.Margin = new System.Windows.Forms.Padding(2);
-            this.tbxCorteA.Name = "tbxCorteA";
-            this.tbxCorteA.Size = new System.Drawing.Size(53, 20);
-            this.tbxCorteA.TabIndex = 15;
+            this.tiempoPermanencia.HeaderText = "AC Tiempo permanencia clientes";
+            this.tiempoPermanencia.Name = "tiempoPermanencia";
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 450);
+            this.ClientSize = new System.Drawing.Size(1063, 498);
             this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblPromedioAtencion);
+            this.Controls.Add(this.lblPromedioOcioso);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.lblPromedioPermanencia);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.tbxHasta);
             this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.tbxDesde);
+            this.Controls.Add(this.txtIteraciones);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.dgv_datos);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -577,12 +691,11 @@
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_datos)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -604,24 +717,37 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxHastaDemoraCaja;
         private System.Windows.Forms.TextBox tbxDesdeDemoraCaja;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbxHastaFilas;
-        private System.Windows.Forms.TextBox tbxDesdeFilas;
         private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.DataGridView dgv_datos;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxCorteB;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbxCorteA;
+        private System.Windows.Forms.TextBox txtIteraciones;
+        private System.Windows.Forms.TextBox tbxDesde;
+        private System.Windows.Forms.TextBox tbxHasta;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblPromedioAtencion;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblPromedioOcioso;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblPromedioPermanencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn evento;
         private System.Windows.Forms.DataGridViewTextBoxColumn reloj;
         private System.Windows.Forms.DataGridViewTextBoxColumn rndTiempoLlegada;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoEntreLlegada;
         private System.Windows.Forms.DataGridViewTextBoxColumn proxLLegada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rndGondola;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoGondola;
         private System.Windows.Forms.DataGridViewTextBoxColumn rndTiempoFin;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoAtencion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoFinAtencion;
         private System.Windows.Forms.DataGridViewTextBoxColumn rndMetodoPago;
         private System.Windows.Forms.DataGridViewTextBoxColumn metodoPago;
         private System.Windows.Forms.DataGridViewTextBoxColumn finAt1;
@@ -634,9 +760,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn acClientesFinalizados;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoOciosoCaja1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CantCaja2Usada;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbxCorteA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoPermanencia;
     }
 }
 

@@ -9,7 +9,6 @@ namespace TP5_SIM_2._02.Clases
     public class Caja
     {
         
-        public double tiempoFinAtencion { get; set; }
         public double finAtencion { get; set; }
         public int nroCaja { get; set; }
         // el atributo clientes guarda los clientes en la cola mas el que esta atendiendo
@@ -18,8 +17,12 @@ namespace TP5_SIM_2._02.Clases
 
         public int getTamCola()
         {
-            int x = 0;
-            x = this.clientes.Count;
+            
+            int x = this.clientes.Count;
+            if (x == 0)
+            {
+                return x;
+            }
             return x-1;
         }
 
