@@ -15,9 +15,6 @@ namespace TP5_SIM_2._02.Clases
         public int numCaja { get; set; }
         public double fin_gondola { get; set; }
         public double hora_llegada { get; set; }
-
-
-
-
+ 
     }
 }

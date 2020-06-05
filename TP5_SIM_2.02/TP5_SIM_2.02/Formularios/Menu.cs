@@ -39,19 +39,15 @@ namespace TP5_SIM_2._02.Formularios
         //{        }
 
         
-        public void llegada_cli(double media, List<Cliente> clientes, Caja caja1, Caja caja2)
+        /*public void llegada_cli(double media, List<Cliente> clientes, Caja caja1, Caja caja2)
         {
             //llega un cliente y se genera la proxima llegada, se genera el tiempo en gondola
             double rnd = random.NextDouble();
             double entre_llegada = -media * Math.Log(1 - rnd);
+        }*/
 
-            
-            
-
-
-        }
-
-        public Stack<Cliente> colaAPila(Queue<Cliente> clientes) {
+        public Stack<Cliente> colaAPila(Queue<Cliente> clientes) 
+        {
             
             Stack<Cliente> pilaClientes = new Stack<Cliente>();
 
@@ -73,10 +69,11 @@ namespace TP5_SIM_2._02.Formularios
             return colaClientes;
         }
 
-        public void fin_gondola(Caja caja1, Caja caja2)
+        //Resolver el tema de las gondolas. y Llegada cliente A.
+        public void fin_gondola(Caja caja1, Caja caja2, Cliente cli)
         {
+
             //crear cliente y chequear cajas
-            Cliente cli = new Cliente();
             if (caja1.estado != "Ocupado")
             {
                 cli.estado = "SA";
@@ -116,7 +113,8 @@ namespace TP5_SIM_2._02.Formularios
             }
             else {
                 cli.estado = "EA";
-                caja2.clientes.Enqueue(cli);
+                cli.numCaja = 1;
+                caja1.clientes.Enqueue(cli);
             }
         }
 
@@ -126,6 +124,7 @@ namespace TP5_SIM_2._02.Formularios
             double demoraCajaHasta = double.Parse(tbxHastaDemoraCaja.Text);
 
             double rnd_fin_at = random.NextDouble();
+
 
             // X = A + RND (B - A)
             double tiempo_fin_atencion = demoraCajaDesde + rnd_fin_at * (demoraCajaHasta - demoraCajaDesde);
@@ -160,9 +159,16 @@ namespace TP5_SIM_2._02.Formularios
                 {
                     tiempos.Add(cli.fin_gondola);
                 }
-                    menor = tiempos.Min();       
-                }
-            return cli_gondolas.Find(c => c.fin_gondola == menor);
+                    menor = tiempos.Min();
+                    return cli_gondolas.Find(c => c.fin_gondola == menor);
+            }
+            else
+            {
+                Cliente cli = new Cliente();
+                cli.fin_gondola = 9999999999999999999;
+                return cli;
+            }
+            
 
         }
 
@@ -177,13 +183,12 @@ namespace TP5_SIM_2._02.Formularios
             caja2.estado = "Cerrado";
             caja2.nroCaja = 2;
 
-
+            //Parametros que piden en la ventana principal.
             double media = double.Parse(tbxMedia.Text);
-            int corteA = int.Parse(tbxCorteA.Text);
-            int corteB = int.Parse(tbxCorteB.Text);
-            double demoraGondolaDesde = double.Parse(tbxDesdeDemoraCliente.Text);
-            double demoraGondolaHasta = double.Parse(tbxHastaDemoraCliente.Text);
 
+            //Variable que corta.
+            int corteA = int.Parse(tbxCorteA.Text);
+            double corteB = double.Parse(tbxCorteB.Text);
 
 
             string nombre_evento = "";
@@ -221,8 +226,7 @@ namespace TP5_SIM_2._02.Formularios
 
             // El contador de x debería ser 0 para que el id del primer cliente no sea 2
             int x = -1;   // para que entre en inicialización;
-            double reloj = 0;
-          
+            double reloj = 0.0;         
 
             // i = filas
             // caso A
@@ -256,12 +260,13 @@ namespace TP5_SIM_2._02.Formularios
                             reloj = prox_llegada;
                             rnd_lleg_cliente = random.NextDouble();
                             tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
-                            prox_llegada = tiempo_entre_llegadas;
+                            prox_llegada = tiempo_entre_llegadas + reloj;
 
                             if (caja1.estado == "Libre")
                             {
                                 cl.estado = "SA";
                                 caja1.estado = "Ocupado";
+                                cl.numCaja = 1;
                                 caja1.finAtencion = fin_atencion(reloj);
                                 caja1.clientes.Enqueue(cl);
 
@@ -419,7 +424,7 @@ namespace TP5_SIM_2._02.Formularios
             }
             if (rbCasoB.Checked)
             {
-                for (int i = 0; i <= corteB; i++)
+                while (reloj <= corteB)
                 {
                     //evento de inicialización
                     if (x == -1)
@@ -445,7 +450,7 @@ namespace TP5_SIM_2._02.Formularios
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
-                        cl.fin_gondola = fin_gondola(caja1, caja2);
+                        //cl.fin_gondola = fin_gondola(caja1, caja2);
                         cl.estado = "RG";
                         cli_gondolas.Add(cl);
                     }
@@ -601,7 +606,7 @@ namespace TP5_SIM_2._02.Formularios
                         //quitar el cliente que se va de la cola
                         caja2.clientes.Dequeue();
 
-                        if (caja2.cola == 0)
+                        if (caja2.clientes.Count == 0)
                         {
                             caja2.estado = "Cerrado";
 
