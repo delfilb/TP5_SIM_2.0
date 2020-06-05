@@ -122,7 +122,7 @@ namespace TP5_SIM_2._02.Formularios
         {
             double demoraCajaDesde = double.Parse(tbxDesdeDemoraCaja.Text);
             double demoraCajaHasta = double.Parse(tbxHastaDemoraCaja.Text);
-
+            
             double rnd_fin_at = random.NextDouble();
 
 
@@ -222,6 +222,9 @@ namespace TP5_SIM_2._02.Formularios
             double rnd_gondola = 0;
             double tiempo_gondola = 0;
             double tiempo_fin_gondola = 0;
+            double demoraGondolaDesde = double.Parse(tbxDesdeDemoraCliente.Text);
+            double demoraGondolaHasta = double.Parse(tbxHastaDemoraCliente.Text);
+
             List<Cliente> cli_gondolas = new List<Cliente>();
 
             // El contador de x debería ser 0 para que el id del primer cliente no sea 2
@@ -450,111 +453,26 @@ namespace TP5_SIM_2._02.Formularios
                         rnd_lleg_cliente = random.NextDouble();
                         tiempo_entre_llegadas = -media * Math.Log(1 - rnd_lleg_cliente);
                         prox_llegada = tiempo_entre_llegadas;
-                        //cl.fin_gondola = fin_gondola(caja1, caja2);
+                        rnd_gondola = random.NextDouble();
+                        tiempo_gondola = demoraGondolaDesde + rnd_gondola * (demoraGondolaHasta - demoraGondolaDesde);
+                        tiempo_fin_gondola = tiempo_gondola + reloj;
+                        cl.fin_gondola = tiempo_fin_gondola;
                         cl.estado = "RG";
                         cli_gondolas.Add(cl);
                     }
 
 
-                    //if de cuando ocurre tiempo_fin_gondola <............
-                    /*
+                     if (menorGondolas(cli_gondolas).fin_gondola < prox_llegada && menorGondolas(cli_gondolas).fin_gondola < caja1.finAtencion && menorGondolas(cli_gondolas).fin_gondola < caja2.finAtencion)
                      {
-                     Cliente cl = new Cliente();
-                     cl = menorGondolas();
-                     reloj = cl.fin_gondola;
-                     nombre_evento = "Fin_Recorrer_Góndolas"
-                     cli_gondolas.Remove(cli);
-                     
-                     
-                    /*
-                   if (caja1.estado == "Libre")
-                   {
-                       cl.estado = "SA";
-                       caja1.estado = "Ocupado";
-                       caja1.finAtencion = fin_atencion();
-                       caja1.cliente.Enqueue(cl);
-
-                   }
-
-                   if (caja1.estado == "Ocupado")
-                   {
-                       if (caja2.estado == "Cerrado")
-                       {
-
-                           if (caja1.getTamCola() < 4)
-                           {
-                               //agrega el cliente a la cola de la caja 1, le cambia su estado
-
-                               cl.estado = "EA";
-                               cl.numCaja = 1;
-                               caja1.cliente.Enqueue(cl);
+                         Cliente cl = menorGondolas(cli_gondolas);
+                         reloj = cl.fin_gondola;
+                         nombre_evento = "Fin_Recorrer_Góndolas";
+                         cli_gondolas.Remove(cl);
 
 
-                           }
-                           else
-                           {
-                               //obtengo los dos últimos de la caja 1 y los pongo en la caja 2, y luego el cliente que llegó último
-                               Cliente clpos3 = new Cliente();
-                               Cliente clpos4 = new Cliente();
-                               clpos4 = caja1.cliente.Last<Cliente>();
-                               clpos3 = caja1.cliente.Last<Cliente>();
-
-                               caja2.cliente.Enqueue(clpos3);
-                               caja2.cliente.Enqueue(clpos4);
-                               caja2.cliente.Enqueue(cl);
-
-                               //acutualiza estados
-                               caja2.estado = "Ocupado";
-                               clpos3.estado = "SA";
-                               cl.estado = "EA";
-                               clpos3.numCaja = 2;
-                               clpos4.numCaja = 2;
-                               cl.numCaja = 2;
-
-                               //Invierto la cola de la caja1 para sacar los dos últimos elementos... no supe cómo borrar con el índice jujuju
-                               caja1.cliente.Reverse<Cliente>();
-                               caja1.cliente.Dequeue();
-                               caja1.cliente.Dequeue();
-
-                               caja1.cliente.Reverse<Cliente>();
-
-                               //fin de atención para el cliente que empezó a atender la caja 2
-                               caja2.finAtencion = fin_atencion();
-
-                               // contador caja 2 usada
-                               cant_caja_2_usada = cant_caja_2_usada + 1;
-
-                           }
-                       }
-                       // la caja 2 estaría en Ocupado (No tiene estado Libre, porque cuando se desocupa cierra)
-                       else
-                       {
-                           if (caja1.getTamCola() <= caja2.getTamCola())
-                           {
-                               //agregar a cola 1
-                               cl.estado = "EA";
-                               cl.numCaja = 1;
-                               caja1.cliente.Enqueue(cl);
-
-                           }
-                           else
-                           {
-                               //agregar a cola 2
-                               cl.estado = "EA";
-                               cl.numCaja = 2;
-                               caja2.cliente.Enqueue(cl);
-
-                           }
-
-                           cl.estado = "EA";
-                           cl.numCaja = 1;
-                           caja1.cliente.Enqueue(cl);
-                       }
-
-                   }
-                   dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
+                        fin_gondola(caja1, caja2, cl);
                }
-               */
+               
 
                     //if de los fin_atencion
                     if (caja1.finAtencion < prox_llegada && caja1.finAtencion < caja2.finAtencion && caja1.finAtencion < menorGondolas(cli_gondolas).fin_gondola) // agregar la comparación de los tiempos de góndola
@@ -590,7 +508,6 @@ namespace TP5_SIM_2._02.Formularios
 
                         }
                        
-                        dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
                     }
                     
                     if (caja2.finAtencion < prox_llegada && caja2.finAtencion < caja1.finAtencion)
@@ -622,11 +539,15 @@ namespace TP5_SIM_2._02.Formularios
                             caja2.finAtencion = fin_atencion(reloj);   // tiempo de fin de atención del nuevo cliente atendido
 
                         }
-                        dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
+                        
 
                      }
 
+                dgv_datos.Rows.Add(nombre_evento, reloj, rnd_lleg_cliente, tiempo_entre_llegadas, prox_llegada, rnd_pago, metodo_pago, rnd_fin_at, tiempo_fin_atencion, caja1.finAtencion, caja2.finAtencion, caja1.estado + ' ' + caja1.nroCaja.ToString(), caja1.getTamCola().ToString(), caja2.estado, caja2.getTamCola().ToString());
+
+
                 }
+
             }
             
         }
