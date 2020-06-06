@@ -17,6 +17,7 @@ namespace TP5_SIM_2._02.Formularios
     public partial class Menu : Form
     {
         private static readonly Random random = new Random();
+        private object DataControlRowType;
 
         public Menu()
         {
@@ -31,9 +32,9 @@ namespace TP5_SIM_2._02.Formularios
         {
             for (int i = 0; i < valores.Count; i++)
             {
-                if (valores[i] == 0)
+                if (valores[i] == 0.0)
                 {
-                    valores[i] = 9999;
+                    valores[i] = 9999.99;
                 }
             }
         }
@@ -237,6 +238,13 @@ namespace TP5_SIM_2._02.Formularios
                 caja1.estado = "Ocupado";
                 caja1.finAtencion = demoraAtencion + reloj;
                 caja1.clientes.Enqueue(cli);
+
+                // para que en la columna de la tabla se muestren los valores (Antes: aparecian los valores 0)
+                vector[0][7] = rndDemora;
+                vector[0][8] = demoraAtencion;
+                vector[0][9] = rndMetodo;
+                vector[0][10] = metodo;
+
             }
             else if (caja1.clientes.Count > 4)
             {
@@ -267,6 +275,8 @@ namespace TP5_SIM_2._02.Formularios
                     cli.estado = "SA";
                     cli.numCaja = 2;
                     caja2.estado = "Ocupado";
+                    // para que en la columna de la tabla se muestre el estado OCUPADO (Antes: quedaba en "Cerrado")
+                    vector[0][15] = caja2.estado;
                     caja2.clientes.Enqueue(cli);
 
                 }
@@ -511,6 +521,9 @@ namespace TP5_SIM_2._02.Formularios
                         {
                             if (rbCasoA.Checked)
                             {
+                                // para el caso A oculta columndas del caso B  
+                                dgv_datos.Columns["rndGondola"].Visible = false;
+                                dgv_datos.Columns["tiempoGondola"].Visible = false;
 
                                 double hastaClientes = double.Parse(tbxCorteA.Text);
                                 if (acClientesAtendidos == hastaClientes)
@@ -539,7 +552,6 @@ namespace TP5_SIM_2._02.Formularios
                                     finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
                                     List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2 };
                                     mayorACero(tiemposComparar);
-                                    
 
 
                                     double menorTiempo = tiemposComparar.Min();
