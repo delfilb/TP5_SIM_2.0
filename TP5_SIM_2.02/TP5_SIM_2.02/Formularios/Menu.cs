@@ -26,8 +26,9 @@ namespace TP5_SIM_2._02.Formularios
 
 
         }
+        
 
-        //
+        
         public void mayorACero(List<double> valores)
         {
             for (int i = 0; i < valores.Count; i++)
@@ -57,8 +58,20 @@ namespace TP5_SIM_2._02.Formularios
         {
             if (caja1.estado != "Ocupado")
             {
-                //Esta función calcula el metodoDePago de acuerdo a si es con Tarjeta o Efectivo
-                metodoDePago(rndDemora, a, b, rndMetodo, demoraAtencion, metodo);
+                rndDemora = random.NextDouble();
+                demoraAtencion = a + (rndDemora * (b - a));
+                rndMetodo = random.NextDouble();
+
+                metodo = "Efectivo";
+
+                if (rndMetodo < 0.2)
+                {
+                    metodo = "Tarjeta";
+                    demoraAtencion = demoraAtencion + 2;
+
+                }
+            
+                
 
                 /* Se modifica el estado del cliente a SA y se le pone el número de la caja1
                 A la Caja1 se le cambia el estado a Ocupado 
@@ -93,7 +106,21 @@ namespace TP5_SIM_2._02.Formularios
                     demoraAtencion = a + (rndDemora * (b - a));
                     rndMetodo = random.NextDouble();
 
-                    metodoDePago(rndDemora, a, b, rndMetodo, demoraAtencion, metodo);
+                    if (caja1.estado != "Ocupado")
+                    {
+                        rndDemora = random.NextDouble();
+                        demoraAtencion = a + (rndDemora * (b - a));
+                        rndMetodo = random.NextDouble();
+
+                        metodo = "Efectivo";
+
+                        if (rndMetodo < 0.2)
+                        {
+                            metodo = "Tarjeta";
+                            demoraAtencion = demoraAtencion + 2;
+
+                        }
+                    }
 
                     caja2.finAtencion = demoraAtencion + reloj;
                     cli.estado = "SA";
@@ -124,21 +151,20 @@ namespace TP5_SIM_2._02.Formularios
         }
 
         //Obtiene el metodo de pago por cliente
-        public void metodoDePago(double rndDemora, double a, double b, double rndMetodo, double demoraAtencion, string metodo)
+        public double  metodoDePago(double rndDemora, double a, double b, double rndMetodo, double demoraAtencion)
         {
             rndDemora = random.NextDouble();
             demoraAtencion = a + (rndDemora * (b - a));
             rndMetodo = random.NextDouble();
+            string metodo = "Efectivo";
 
             if (rndMetodo < 0.2)
             {
                 metodo = "Tarjeta";
                 demoraAtencion = demoraAtencion + 2;
+                return demoraAtencion;
             }
-            else
-            {
-                metodo = "Efectivo";
-            }
+            return demoraAtencion;
         }
 
         /*Compara si hay clientes en las gondolas, en el caso que si, busca el menor con la funcion menorGondolas y le setea
@@ -182,9 +208,11 @@ namespace TP5_SIM_2._02.Formularios
         }
 
 
-
+        // Esta función registra la llegada al cliente al local, mandandolo a la gondola.
+        // Se le agrega 
         public void llegadaGodola(double media, List<Cliente> gondolas, object[][] vector, double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, int vecesCaja2Abrio)
         {
+            /* Definicion de variables y cálculos*/
             string evento = "Llegada Cliente";
             double rndLlegada = random.NextDouble();
             double entre_llegada = -media * Math.Log(1 - rndLlegada);
@@ -193,10 +221,13 @@ namespace TP5_SIM_2._02.Formularios
             double demoraGondola = a + (rndDemoraGondola * (b - a));
             double finGondola = demoraGondola + reloj;
 
+
             Cliente cli = new Cliente();
             cli.fin_gondola = finGondola;
             cli.hora_llegada = reloj;
             gondolas.Add(cli);
+
+            /*Se obtiene el cliente con el tiempo de gondola más chico y se lo asigna a la variable menorGondola*/
             double menorGondola = menorGondolas(gondolas).fin_gondola;
 
             vector[1] = vector[0];
@@ -221,18 +252,23 @@ namespace TP5_SIM_2._02.Formularios
             cli.hora_llegada = reloj;
             if (caja1.estado != "Ocupado")
             {
-                rndDemora = random.NextDouble();
-                demoraAtencion = a + (rndDemora * (b - a));
-                rndMetodo = random.NextDouble();
-                if (rndMetodo < 0.2)
+
+                if (caja1.estado != "Ocupado")
                 {
-                    metodo = "Tarjeta";
-                    demoraAtencion = demoraAtencion + 2;
-                }
-                else
-                {
+                    rndDemora = random.NextDouble();
+                    demoraAtencion = a + (rndDemora * (b - a));
+                    rndMetodo = random.NextDouble();
+
                     metodo = "Efectivo";
+
+                    if (rndMetodo < 0.2)
+                    {
+                        metodo = "Tarjeta";
+                        demoraAtencion = demoraAtencion + 2;
+
+                    }
                 }
+
                 cli.estado = "SA";
                 cli.numCaja = 1;
                 caja1.estado = "Ocupado";
@@ -259,18 +295,23 @@ namespace TP5_SIM_2._02.Formularios
                     caja1.clientes.Clear();
                     caja1.clientes = pilaACola(pila);
 
-                    rndDemora = random.NextDouble();
-                    demoraAtencion = a + (rndDemora * (b - a));
-                    rndMetodo = random.NextDouble();
-                    if (rndMetodo < 0.2)
+
+                    if (caja1.estado != "Ocupado")
                     {
-                        metodo = "Tarjeta";
-                        demoraAtencion = demoraAtencion + 2;
-                    }
-                    else
-                    {
+                        rndDemora = random.NextDouble();
+                        demoraAtencion = a + (rndDemora * (b - a));
+                        rndMetodo = random.NextDouble();
+
                         metodo = "Efectivo";
+
+                        if (rndMetodo < 0.2)
+                        {
+                            metodo = "Tarjeta";
+                            demoraAtencion = demoraAtencion + 2;
+
+                        }
                     }
+
                     caja2.finAtencion = demoraAtencion + reloj;
                     cli.estado = "SA";
                     cli.numCaja = 2;
@@ -326,18 +367,22 @@ namespace TP5_SIM_2._02.Formularios
 
                 if (caja1.clientes.Count > 0)
                 {
-                    rndDemora = random.NextDouble();
-                    demoraAtencion = a + (rndDemora * (b - a));
-                    rndMetodo = random.NextDouble();
-                    if (rndMetodo < 0.2)
+                    if (caja1.estado != "Ocupado")
                     {
-                        metodo = "Tarjeta";
-                        demoraAtencion = demoraAtencion + 2;
-                    }
-                    else
-                    {
+                        rndDemora = random.NextDouble();
+                        demoraAtencion = a + (rndDemora * (b - a));
+                        rndMetodo = random.NextDouble();
+
                         metodo = "Efectivo";
+
+                        if (rndMetodo < 0.2)
+                        {
+                            metodo = "Tarjeta";
+                            demoraAtencion = demoraAtencion + 2;
+
+                        }
                     }
+
                     caja1.finAtencion = demoraAtencion + reloj;
                     Cliente siguiente = caja1.clientes.First();
                     siguiente.estado = "SA";
@@ -360,19 +405,25 @@ namespace TP5_SIM_2._02.Formularios
                 caja2.clientes.Dequeue();
                 if (caja2.clientes.Count > 0)
                 {
-                    rndDemora = random.NextDouble();
-                    demoraAtencion = a + (rndDemora * (b - a));
-                    rndMetodo = random.NextDouble();
-                    if (rndMetodo < 0.2)
+                    if (caja1.estado != "Ocupado")
                     {
-                        metodo = "Tarjeta";
-                        demoraAtencion = demoraAtencion + 2;
-                    }
-                    else
-                    {
+                        rndDemora = random.NextDouble();
+                        demoraAtencion = a + (rndDemora * (b - a));
+                        rndMetodo = random.NextDouble();
+
                         metodo = "Efectivo";
+
+                        if (rndMetodo < 0.2)
+                        {
+                            metodo = "Tarjeta";
+                            demoraAtencion = demoraAtencion + 2;
+
+                        }
                     }
+
                     caja2.finAtencion = demoraAtencion + reloj;
+                    
+
                     Cliente siguiente = caja2.clientes.First();
                     siguiente.estado = "SA";
                     siguiente.numCaja = 2;
