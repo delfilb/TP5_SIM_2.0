@@ -16,9 +16,7 @@ COSAS QUE FALTAN:
 PROGRAMACION:
     1- ARREGLAR LOS ACUMULADORES Y CONTADORES -- DELFI Y YO. 
     2- MOSTRAR ESTADOS DE LOS CLIENTES -- JOSÉ
-    3- QUE NO SALTE ERROR CUANDO DESHABILITAMOS LOS CAMPOS DE DEMORA (CASO A) -- AILIN
-    4- NRO DE CLIENTES SALTA ERROR CUANDO ESTÁ DESHABILITADO (CASO B) -- AILIN
-    5- COLA 2 -- DELFI Y IO 
+    3- COLA 2 -- DELFI Y IO 
 
 WORD/PDF:
     1- ESPECIFICACIÓN DE REQUERIMIENTOS (a) -- JOSÉ
@@ -38,12 +36,19 @@ namespace TP5_SIM_2._02.Formularios
     {
         private static readonly Random random = new Random();
         private object DataControlRowType;
+        
 
         public Menu()
         {
 
             InitializeComponent();
 
+            tbxDesdeDemoraCliente.Text = 0.ToString();
+            tbxHastaDemoraCliente.Text = 0.ToString();
+            tbxCorteB.Text = 0.ToString();
+            tbxDesdeDemoraCliente.Enabled = false;
+            tbxHastaDemoraCliente.Enabled = false;
+            tbxCorteB.Enabled = false;
 
         }
         

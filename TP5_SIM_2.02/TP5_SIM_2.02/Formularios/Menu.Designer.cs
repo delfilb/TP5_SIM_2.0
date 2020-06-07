@@ -123,6 +123,7 @@
             // rbCasoA
             // 
             this.rbCasoA.AutoSize = true;
+            this.rbCasoA.Checked = true;
             this.rbCasoA.Location = new System.Drawing.Point(27, 34);
             this.rbCasoA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbCasoA.Name = "rbCasoA";
