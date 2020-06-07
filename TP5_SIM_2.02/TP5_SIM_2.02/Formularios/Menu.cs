@@ -10,6 +10,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP5_SIM_2._02.Clases;
 
+/*
+COSAS QUE FALTAN:
+
+PROGRAMACION:
+    1- ARREGLAR LOS ACUMULADORES Y CONTADORES -- DELFI Y YO. 
+    2- MOSTRAR ESTADOS DE LOS CLIENTES -- JOSÉ
+    3- QUE NO SALTE ERROR CUANDO DESHABILITAMOS LOS CAMPOS DE DEMORA (CASO A) -- AILIN
+    4- NRO DE CLIENTES SALTA ERROR CUANDO ESTÁ DESHABILITADO (CASO B) -- AILIN
+    5- COLA 2 -- DELFI Y IO 
+
+WORD/PDF:
+    1- ESPECIFICACIÓN DE REQUERIMIENTOS (a) -- JOSÉ
+    2- DIAGRAMA DE FLUJO (c) -- CAMI Y DAI
+    3- MODELADO (b) -- DAI
+
+
+OPCIONAL: (SI PINTA VERLO)
+    1- HACER UNA MÉTRICA MÁS PIOLA
+ */
+
 //Ver el tiempo de atencion
 //
 namespace TP5_SIM_2._02.Formularios
@@ -68,7 +88,6 @@ namespace TP5_SIM_2._02.Formularios
                 {
                     metodo = "Tarjeta";
                     demoraAtencion = demoraAtencion + 2;
-
                 }
             
                 
