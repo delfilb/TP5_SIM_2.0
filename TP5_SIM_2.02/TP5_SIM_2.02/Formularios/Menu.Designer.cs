@@ -78,10 +78,8 @@
             this.tbxCorteA = new System.Windows.Forms.TextBox();
             this.txtIteraciones = new System.Windows.Forms.TextBox();
             this.tbxDesde = new System.Windows.Forms.TextBox();
-            this.tbxHasta = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lblPromedioAtencion = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -105,7 +103,7 @@
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox5.Size = new System.Drawing.Size(126, 119);
-            this.groupBox5.TabIndex = 24;
+            this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Casos";
             // 
@@ -116,7 +114,7 @@
             this.rbCasoB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbCasoB.Name = "rbCasoB";
             this.rbCasoB.Size = new System.Drawing.Size(74, 21);
-            this.rbCasoB.TabIndex = 19;
+            this.rbCasoB.TabIndex = 5;
             this.rbCasoB.TabStop = true;
             this.rbCasoB.Text = "Caso B";
             this.rbCasoB.UseVisualStyleBackColor = true;
@@ -129,7 +127,7 @@
             this.rbCasoA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbCasoA.Name = "rbCasoA";
             this.rbCasoA.Size = new System.Drawing.Size(74, 21);
-            this.rbCasoA.TabIndex = 18;
+            this.rbCasoA.TabIndex = 4;
             this.rbCasoA.TabStop = true;
             this.rbCasoA.Text = "Caso A";
             this.rbCasoA.UseVisualStyleBackColor = true;
@@ -148,7 +146,7 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Size = new System.Drawing.Size(270, 119);
-            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Demora Clientes recorriendo Gondolas";
             // 
@@ -167,7 +165,7 @@
             this.tbxCorteB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxCorteB.Name = "tbxCorteB";
             this.tbxCorteB.Size = new System.Drawing.Size(143, 22);
-            this.tbxCorteB.TabIndex = 18;
+            this.tbxCorteB.TabIndex = 12;
             // 
             // label6
             // 
@@ -193,7 +191,7 @@
             this.tbxHastaDemoraCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxHastaDemoraCliente.Name = "tbxHastaDemoraCliente";
             this.tbxHastaDemoraCliente.Size = new System.Drawing.Size(143, 22);
-            this.tbxHastaDemoraCliente.TabIndex = 16;
+            this.tbxHastaDemoraCliente.TabIndex = 11;
             // 
             // tbxDesdeDemoraCliente
             // 
@@ -201,7 +199,7 @@
             this.tbxDesdeDemoraCliente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxDesdeDemoraCliente.Name = "tbxDesdeDemoraCliente";
             this.tbxDesdeDemoraCliente.Size = new System.Drawing.Size(143, 22);
-            this.tbxDesdeDemoraCliente.TabIndex = 15;
+            this.tbxDesdeDemoraCliente.TabIndex = 10;
             // 
             // groupBox4
             // 
@@ -212,7 +210,7 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Size = new System.Drawing.Size(192, 57);
-            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Llegada de clientes";
             // 
@@ -222,7 +220,7 @@
             this.tbxMedia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxMedia.Name = "tbxMedia";
             this.tbxMedia.Size = new System.Drawing.Size(92, 22);
-            this.tbxMedia.TabIndex = 1;
+            this.tbxMedia.TabIndex = 14;
             // 
             // label2
             // 
@@ -246,7 +244,7 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Size = new System.Drawing.Size(270, 119);
-            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Demora en Caja";
             // 
@@ -292,7 +290,7 @@
             this.tbxHastaDemoraCaja.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxHastaDemoraCaja.Name = "tbxHastaDemoraCaja";
             this.tbxHastaDemoraCaja.Size = new System.Drawing.Size(79, 22);
-            this.tbxHastaDemoraCaja.TabIndex = 16;
+            this.tbxHastaDemoraCaja.TabIndex = 8;
             // 
             // tbxDesdeDemoraCaja
             // 
@@ -300,15 +298,15 @@
             this.tbxDesdeDemoraCaja.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxDesdeDemoraCaja.Name = "tbxDesdeDemoraCaja";
             this.tbxDesdeDemoraCaja.Size = new System.Drawing.Size(79, 22);
-            this.tbxDesdeDemoraCaja.TabIndex = 15;
+            this.tbxDesdeDemoraCaja.TabIndex = 7;
             // 
             // btnGenerar
             // 
-            this.btnGenerar.Location = new System.Drawing.Point(1284, 126);
+            this.btnGenerar.Location = new System.Drawing.Point(1284, 104);
             this.btnGenerar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(94, 30);
-            this.btnGenerar.TabIndex = 22;
+            this.btnGenerar.TabIndex = 17;
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.UseVisualStyleBackColor = true;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
@@ -345,7 +343,7 @@
             this.dgv_datos.RowHeadersWidth = 51;
             this.dgv_datos.RowTemplate.Height = 24;
             this.dgv_datos.Size = new System.Drawing.Size(1352, 342);
-            this.dgv_datos.TabIndex = 21;
+            this.dgv_datos.TabIndex = 19;
             // 
             // evento
             // 
@@ -503,11 +501,11 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(1284, 82);
+            this.btnLimpiar.Location = new System.Drawing.Point(1284, 138);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(94, 39);
-            this.btnLimpiar.TabIndex = 28;
+            this.btnLimpiar.Size = new System.Drawing.Size(94, 31);
+            this.btnLimpiar.TabIndex = 18;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -521,7 +519,7 @@
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox6.Size = new System.Drawing.Size(197, 69);
-            this.groupBox6.TabIndex = 32;
+            this.groupBox6.TabIndex = 15;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Promedio tiempo atención";
             // 
@@ -540,36 +538,28 @@
             this.tbxCorteA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxCorteA.Name = "tbxCorteA";
             this.tbxCorteA.Size = new System.Drawing.Size(70, 22);
-            this.tbxCorteA.TabIndex = 15;
+            this.tbxCorteA.TabIndex = 16;
             // 
             // txtIteraciones
             // 
-            this.txtIteraciones.Location = new System.Drawing.Point(123, 38);
+            this.txtIteraciones.Location = new System.Drawing.Point(126, 70);
             this.txtIteraciones.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIteraciones.Name = "txtIteraciones";
             this.txtIteraciones.Size = new System.Drawing.Size(145, 22);
-            this.txtIteraciones.TabIndex = 15;
+            this.txtIteraciones.TabIndex = 1;
             // 
             // tbxDesde
             // 
-            this.tbxDesde.Location = new System.Drawing.Point(125, 75);
+            this.tbxDesde.Location = new System.Drawing.Point(126, 113);
             this.tbxDesde.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxDesde.Name = "tbxDesde";
             this.tbxDesde.Size = new System.Drawing.Size(143, 22);
-            this.tbxDesde.TabIndex = 15;
-            // 
-            // tbxHasta
-            // 
-            this.tbxHasta.Location = new System.Drawing.Point(125, 114);
-            this.tbxHasta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbxHasta.Name = "tbxHasta";
-            this.tbxHasta.Size = new System.Drawing.Size(143, 22);
-            this.tbxHasta.TabIndex = 16;
+            this.tbxDesde.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 42);
+            this.label1.Location = new System.Drawing.Point(3, 74);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(122, 17);
             this.label1.TabIndex = 15;
@@ -578,20 +568,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(61, 78);
+            this.label3.Location = new System.Drawing.Point(62, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 17);
             this.label3.TabIndex = 15;
             this.label3.Text = "Desde:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(61, 118);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 17);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Hasta:";
             // 
             // label13
             // 
@@ -650,7 +631,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1417, 613);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblPromedioAtencion);
             this.Controls.Add(this.lblPromedioOcioso);
@@ -660,7 +640,6 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.tbxHasta);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.tbxDesde);
             this.Controls.Add(this.txtIteraciones);
@@ -716,10 +695,8 @@
         private System.Windows.Forms.TextBox tbxCorteA;
         private System.Windows.Forms.TextBox txtIteraciones;
         private System.Windows.Forms.TextBox tbxDesde;
-        private System.Windows.Forms.TextBox tbxHasta;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;

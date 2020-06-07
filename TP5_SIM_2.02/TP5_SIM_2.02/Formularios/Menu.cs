@@ -422,6 +422,7 @@ namespace TP5_SIM_2._02.Formularios
                 double tiempoPermanencia = reloj - cliAtendido.hora_llegada;
                 acTiempoPerm = acTiempoPerm + tiempoPermanencia;
                 caja2.clientes.Dequeue();
+
                 if (caja2.clientes.Count > 0)
                 {
                     if (caja1.estado != "Ocupado")
@@ -535,9 +536,9 @@ namespace TP5_SIM_2._02.Formularios
 
             string iter = txtIteraciones.Text;
             string des = tbxDesde.Text;
-            string has = tbxHasta.Text;
+            
 
-            if (iter == "" || des == "" || has == "")
+            if (iter == "" || des == "")
             {
                 MessageBox.Show("Ingrese todo los valores");
                 txtIteraciones.Focus();
@@ -546,7 +547,7 @@ namespace TP5_SIM_2._02.Formularios
             {
                 double iteracion = double.Parse(iter);
                 double desde = double.Parse(des);
-                double hasta = double.Parse(has);
+                double hasta = desde + 100;
                 double media = double.Parse(tbxMedia.Text);
                 double a = double.Parse(tbxDesdeDemoraCaja.Text);
                 double b = double.Parse(tbxHastaDemoraCaja.Text);
@@ -812,9 +813,14 @@ namespace TP5_SIM_2._02.Formularios
 
         private void rbCasoA_CheckedChanged(object sender, EventArgs e)
         {
-            
 
-            
+            tbxDesdeDemoraCliente.Text = 0.ToString();
+            tbxHastaDemoraCliente.Text = 0.ToString();
+            tbxCorteB.Text = 0.ToString();
+            tbxDesdeDemoraCliente.Enabled = false;
+            tbxHastaDemoraCliente.Enabled = false;
+            tbxCorteB.Enabled = false;
+
         }
         
 
@@ -823,7 +829,6 @@ namespace TP5_SIM_2._02.Formularios
             rbCasoA.Checked = false;
             rbCasoB.Checked = false;
             tbxDesde.Clear();
-            tbxHasta.Clear();
             tbxDesdeDemoraCliente.Enabled = true;
             tbxDesdeDemoraCaja.Clear();
             tbxHastaDemoraCliente.Enabled = true;
@@ -833,6 +838,7 @@ namespace TP5_SIM_2._02.Formularios
             tbxMedia.Clear();
             tbxCorteB.Clear();
             tbxCorteB.Enabled = true;
+            tbxCorteA.Clear();
 
 
             dgv_datos.Rows.Clear();
@@ -841,10 +847,13 @@ namespace TP5_SIM_2._02.Formularios
 
         private void rbCasoB_CheckedChanged_1(object sender, EventArgs e)
         {
+            
             tbxDesdeDemoraCliente.Enabled = true;
             tbxHastaDemoraCliente.Enabled = true;
             tbxCorteB.Enabled = true;
-            tbxCorteA.Enabled = true;
+            tbxCorteA.Text = 0.ToString();
+            tbxCorteA.Enabled = false;
+            
         }
         
     }
