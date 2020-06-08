@@ -314,6 +314,7 @@
             // 
             // dgv_datos
             // 
+            this.dgv_datos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgv_datos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_datos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.evento,
@@ -348,157 +349,179 @@
             // 
             // evento
             // 
+            this.evento.FillWeight = 211.7013F;
             this.evento.HeaderText = "Evento";
             this.evento.MinimumWidth = 6;
             this.evento.Name = "evento";
-            this.evento.Width = 125;
+            this.evento.Width = 81;
             // 
             // reloj
             // 
+            this.reloj.FillWeight = 192.9475F;
             this.reloj.HeaderText = "Reloj (min)";
             this.reloj.MinimumWidth = 6;
             this.reloj.Name = "reloj";
-            this.reloj.Width = 125;
+            this.reloj.Width = 97;
             // 
             // rndTiempoLlegada
             // 
+            this.rndTiempoLlegada.FillWeight = 175.9983F;
             this.rndTiempoLlegada.HeaderText = "RND";
             this.rndTiempoLlegada.MinimumWidth = 6;
             this.rndTiempoLlegada.Name = "rndTiempoLlegada";
-            this.rndTiempoLlegada.Width = 125;
+            this.rndTiempoLlegada.Width = 67;
             // 
             // tiempoEntreLlegada
             // 
+            this.tiempoEntreLlegada.FillWeight = 160.6802F;
             this.tiempoEntreLlegada.HeaderText = "Tiempo entre llegadas";
             this.tiempoEntreLlegada.MinimumWidth = 6;
             this.tiempoEntreLlegada.Name = "tiempoEntreLlegada";
-            this.tiempoEntreLlegada.Width = 125;
+            this.tiempoEntreLlegada.Width = 115;
             // 
             // proxLLegada
             // 
+            this.proxLLegada.FillWeight = 176.2034F;
             this.proxLLegada.HeaderText = "Próxima llegada";
             this.proxLLegada.MinimumWidth = 8;
             this.proxLLegada.Name = "proxLLegada";
-            this.proxLLegada.Width = 150;
+            this.proxLLegada.Width = 126;
             // 
             // rndGondola
             // 
+            this.rndGondola.FillWeight = 157.7981F;
             this.rndGondola.HeaderText = "RND";
             this.rndGondola.MinimumWidth = 8;
             this.rndGondola.Name = "rndGondola";
-            this.rndGondola.Width = 150;
+            this.rndGondola.Width = 67;
             // 
             // tiempoGondola
             // 
+            this.tiempoGondola.FillWeight = 141.5182F;
             this.tiempoGondola.HeaderText = "Tiempo Góndola";
             this.tiempoGondola.MinimumWidth = 8;
             this.tiempoGondola.Name = "tiempoGondola";
-            this.tiempoGondola.Width = 150;
+            this.tiempoGondola.Width = 130;
             // 
             // rndTiempoFin
             // 
+            this.rndTiempoFin.FillWeight = 105.9319F;
             this.rndTiempoFin.HeaderText = "RND";
             this.rndTiempoFin.MinimumWidth = 6;
             this.rndTiempoFin.Name = "rndTiempoFin";
-            this.rndTiempoFin.Width = 125;
+            this.rndTiempoFin.Width = 67;
             // 
             // tiempoAtencion
             // 
+            this.tiempoAtencion.FillWeight = 97.35632F;
             this.tiempoAtencion.HeaderText = "Tiempo Atencion";
             this.tiempoAtencion.MinimumWidth = 6;
             this.tiempoAtencion.Name = "tiempoAtencion";
-            this.tiempoAtencion.Width = 125;
+            this.tiempoAtencion.Width = 131;
             // 
             // rndMetodoPago
             // 
+            this.rndMetodoPago.FillWeight = 89.60606F;
             this.rndMetodoPago.HeaderText = "RND";
             this.rndMetodoPago.MinimumWidth = 6;
             this.rndMetodoPago.Name = "rndMetodoPago";
-            this.rndMetodoPago.Width = 125;
+            this.rndMetodoPago.Width = 67;
             // 
             // metodoPago
             // 
+            this.metodoPago.FillWeight = 82.60163F;
             this.metodoPago.HeaderText = "Metodo Pago";
             this.metodoPago.MinimumWidth = 6;
             this.metodoPago.Name = "metodoPago";
-            this.metodoPago.Width = 125;
+            this.metodoPago.Width = 111;
             // 
             // finAt1
             // 
+            this.finAt1.FillWeight = 76.29867F;
             this.finAt1.HeaderText = "Fin At. 1";
             this.finAt1.MinimumWidth = 6;
             this.finAt1.Name = "finAt1";
-            this.finAt1.Width = 125;
+            this.finAt1.Width = 56;
             // 
             // finAt2
             // 
+            this.finAt2.FillWeight = 70.57364F;
             this.finAt2.HeaderText = "Fin At. 2";
             this.finAt2.MinimumWidth = 6;
             this.finAt2.Name = "finAt2";
-            this.finAt2.Width = 125;
+            this.finAt2.Width = 56;
             // 
             // estado1
             // 
+            this.estado1.FillWeight = 65.39959F;
             this.estado1.HeaderText = "Estado 1";
             this.estado1.MinimumWidth = 6;
             this.estado1.Name = "estado1";
-            this.estado1.Width = 125;
+            this.estado1.Width = 86;
             // 
             // cola1
             // 
+            this.cola1.FillWeight = 60.72351F;
             this.cola1.HeaderText = "Cola 1";
             this.cola1.MinimumWidth = 6;
             this.cola1.Name = "cola1";
-            this.cola1.Width = 125;
+            this.cola1.Width = 72;
             // 
             // estado2
             // 
+            this.estado2.FillWeight = 56.49748F;
             this.estado2.HeaderText = "Estado 2";
             this.estado2.MinimumWidth = 6;
             this.estado2.Name = "estado2";
-            this.estado2.Width = 125;
+            this.estado2.Width = 86;
             // 
             // cola2
             // 
+            this.cola2.FillWeight = 52.67821F;
             this.cola2.HeaderText = "Cola 2";
             this.cola2.MinimumWidth = 6;
             this.cola2.Name = "cola2";
-            this.cola2.Width = 125;
+            this.cola2.Width = 72;
             // 
             // acTiempoFin
             // 
+            this.acTiempoFin.FillWeight = 49.22654F;
             this.acTiempoFin.HeaderText = "AC Tiempo Fin At";
             this.acTiempoFin.MinimumWidth = 6;
             this.acTiempoFin.Name = "acTiempoFin";
-            this.acTiempoFin.Width = 125;
+            this.acTiempoFin.Width = 101;
             // 
             // acClientesFinalizados
             // 
+            this.acClientesFinalizados.FillWeight = 46.10708F;
             this.acClientesFinalizados.HeaderText = "AC Clientes Finalizados";
             this.acClientesFinalizados.MinimumWidth = 6;
             this.acClientesFinalizados.Name = "acClientesFinalizados";
-            this.acClientesFinalizados.Width = 125;
+            this.acClientesFinalizados.Width = 168;
             // 
             // tiempoOciosoCaja1
             // 
+            this.tiempoOciosoCaja1.FillWeight = 43.28787F;
             this.tiempoOciosoCaja1.HeaderText = "Tiempo ocioso de la caja 1";
             this.tiempoOciosoCaja1.MinimumWidth = 6;
             this.tiempoOciosoCaja1.Name = "tiempoOciosoCaja1";
-            this.tiempoOciosoCaja1.Width = 125;
+            this.tiempoOciosoCaja1.Width = 94;
             // 
             // CantCaja2Usada
             // 
+            this.CantCaja2Usada.FillWeight = 40.74002F;
             this.CantCaja2Usada.HeaderText = "Cant veces caja 2 abierta";
             this.CantCaja2Usada.MinimumWidth = 6;
             this.CantCaja2Usada.Name = "CantCaja2Usada";
-            this.CantCaja2Usada.Width = 125;
+            this.CantCaja2Usada.Width = 102;
             // 
             // tiempoPermanencia
             // 
+            this.tiempoPermanencia.FillWeight = 46.12489F;
             this.tiempoPermanencia.HeaderText = "AC Tiempo permanencia clientes";
             this.tiempoPermanencia.MinimumWidth = 8;
             this.tiempoPermanencia.Name = "tiempoPermanencia";
-            this.tiempoPermanencia.Width = 150;
+            this.tiempoPermanencia.Width = 156;
             // 
             // btnLimpiar
             // 
