@@ -580,7 +580,7 @@ namespace TP5_SIM_2._02.Formularios
                 }
                 else
                 {
-                    if (desde < iteracion && hasta <= iteracion && hasta > desde)
+                    if (desde < iteracion)
                     {
                         double minuto= 0.0;
                         double proximaLlegada;
@@ -650,7 +650,7 @@ namespace TP5_SIM_2._02.Formularios
 
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -669,7 +669,7 @@ namespace TP5_SIM_2._02.Formularios
 
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -688,7 +688,7 @@ namespace TP5_SIM_2._02.Formularios
                                         }
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
                                         vectorEstado[0][20] = vecesCaja2Abierta;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -748,7 +748,7 @@ namespace TP5_SIM_2._02.Formularios
                                         
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
                                         vectorEstado[0][20] = vecesCaja2Abierta;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -763,7 +763,7 @@ namespace TP5_SIM_2._02.Formularios
                                             acTiempoOciosoCaja1 = acTiempoOciosoCaja1 + (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
                                         vectorEstado[0][17] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -782,7 +782,7 @@ namespace TP5_SIM_2._02.Formularios
                                         acClientesAtendidos = acClientesAtendidos + 1;
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -800,7 +800,7 @@ namespace TP5_SIM_2._02.Formularios
                                         acClientesAtendidos = acClientesAtendidos +1 ;
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde && minuto <= hasta)
+                                        if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
                                         }
@@ -852,6 +852,7 @@ namespace TP5_SIM_2._02.Formularios
             tbxCorteB.Clear();
             tbxCorteB.Enabled = true;
             tbxCorteA.Clear();
+            txtIteraciones.Clear();
 
 
             dgv_datos.Rows.Clear();
