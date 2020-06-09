@@ -599,7 +599,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(207, 17);
             this.label15.TabIndex = 15;
-            this.label15.Text = "Promedio tiempo ocioso Caja 1:";
+            this.label15.Text = "Promedio tiempo ocioso Caja 2:";
             // 
             // lblPromedioOcioso
             // 
