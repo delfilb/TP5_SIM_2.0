@@ -69,6 +69,7 @@ namespace TP5_SIM_2._02.Formularios
         // Se fija si el fin de gondola coincide con el tiempo de reloj y si es true, lo quita del vector gondolas.
         public void quitarClientesGondola(List<Cliente> gondolas, double reloj, Cliente cli)
         {
+            
             foreach (Cliente c in gondolas)
             {
                 if (c.fin_gondola == reloj)
@@ -79,7 +80,7 @@ namespace TP5_SIM_2._02.Formularios
             }
         }
 
-        public void llegadaCliente(Caja caja1, Caja caja2, double rndDemora, double a, double b, double rndMetodo, double demoraAtencion, string metodo, Cliente cli, double reloj)
+        public void llegadaCliente(List<Cliente> total_clientes,Caja caja1, Caja caja2, double rndDemora, double a, double b, double rndMetodo, double demoraAtencion, string metodo, Cliente cli, double reloj)
         {
             if (caja1.estado != "Ocupado")
             {
@@ -92,19 +93,24 @@ namespace TP5_SIM_2._02.Formularios
                 if (rndMetodo < 0.2)
                 {
                     metodo = "Tarjeta";
-                    demoraAtencion = demoraAtencion + 2;
+                    demoraAtencion += 2;
                 }
             
-                
-
                 /* Se modifica el estado del cliente a SA y se le pone el número de la caja1
                 A la Caja1 se le cambia el estado a Ocupado 
                 Se modifica el fin de atención sumandole a la demora de atención el reloj. 
                 Esta demora de atención es el tiempo de atención, así le deciamos antes. 
                 Por último agregamos a la cola de la caja 1, el cliente cli.*/
 
-                cli.estado = "SA";
                 cli.numCaja = 1;
+                cli.estado = "SA Caja " + cli.numCaja.ToString();
+                foreach (Cliente c in total_clientes)
+                {
+                    if (cli.id == c.id)
+                    {
+                        c.estado = cli.estado;
+                    }
+                }
                 caja1.estado = "Ocupado";
                 caja1.finAtencion = demoraAtencion + reloj;
                 caja1.clientes.Enqueue(cli);
@@ -118,78 +124,95 @@ namespace TP5_SIM_2._02.Formularios
                     // esa pila, sin esos dos ultimos, se pasa a cola de nuevo y se lo asigna a caja1.clientes
 
                     Stack<Cliente> pila = colaAPila(caja1.clientes);
-
                     Cliente extraccion_1 = pila.Pop();
-
+                    extraccion_1.numCaja = 2;
+                    extraccion_1.estado = "SA Caja " + extraccion_1.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (extraccion_1.id == c.id)
+                        {
+                            c.estado = extraccion_1.estado;
+                        }
+                    }
                     caja2.clientes.Enqueue(extraccion_1);
 
                     caja1.clientes.Clear();
                     caja1.clientes = pilaACola(pila);
 
+
                     rndDemora = random.NextDouble();
                     demoraAtencion = a + (rndDemora * (b - a));
                     rndMetodo = random.NextDouble();
 
-                    if (caja1.estado != "Ocupado")
+                    metodo = "Efectivo";
+
+                    if (rndMetodo < 0.2)
                     {
-                        rndDemora = random.NextDouble();
-                        demoraAtencion = a + (rndDemora * (b - a));
-                        rndMetodo = random.NextDouble();
+                        metodo = "Tarjeta";
+                        demoraAtencion +=2;
 
-                        metodo = "Efectivo";
-
-                        if (rndMetodo < 0.2)
-                        {
-                            metodo = "Tarjeta";
-                            demoraAtencion = demoraAtencion + 2;
-
-                        }
                     }
+                    
 
                     caja2.finAtencion = demoraAtencion + reloj;
-                    cli.estado = "SA";
                     cli.numCaja = 2;
+                    cli.estado = "EA Caja " + cli.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (cli.id == c.id)
+                        {
+                            c.estado = cli.estado;
+                        }
+                    }
                     caja2.estado = "Ocupado";
                     caja2.clientes.Enqueue(cli);
 
                 }
                 else if (caja1.getTamCola() <= caja2.getTamCola())
                 {
-                    cli.estado = "EA";
                     cli.numCaja = 1;
+                    cli.estado = "EA Caja " + cli.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (cli.id == c.id)
+                        {
+                            c.estado = cli.estado;
+                        }
+                    }
                     caja1.clientes.Enqueue(cli);
                 }
                 else
                 {
-                    cli.estado = "EA";
                     cli.numCaja = 2;
+                    cli.estado = "EA Caja" + cli.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (cli.id == c.id)
+                        {
+                            c.estado = cli.estado;
+                        }
+                    }
                     caja2.clientes.Enqueue(cli);
                 }
             }
             else
             {
-                cli.estado = "EA";
                 cli.numCaja = 1;
+                cli.estado = "EA Caja" + cli.numCaja.ToString();
+                foreach (Cliente c in total_clientes)
+                {
+                    if (cli.id == c.id)
+                    {
+                        c.estado = cli.estado;
+                    }
+                }
                 caja1.clientes.Enqueue(cli);
+                
             }
+            
+
         }
 
-        //Obtiene el metodo de pago por cliente
-        public double  metodoDePago(double rndDemora, double a, double b, double rndMetodo, double demoraAtencion)
-        {
-            rndDemora = random.NextDouble();
-            demoraAtencion = a + (rndDemora * (b - a));
-            rndMetodo = random.NextDouble();
-            string metodo = "Efectivo";
-
-            if (rndMetodo < 0.2)
-            {
-                metodo = "Tarjeta";
-                demoraAtencion = demoraAtencion + 2;
-                return demoraAtencion;
-            }
-            return demoraAtencion;
-        }
 
         /*Compara si hay clientes en las gondolas, en el caso que si, busca el menor con la funcion menorGondolas y le setea
         el fin de gondola.
@@ -205,7 +228,7 @@ namespace TP5_SIM_2._02.Formularios
             return menorGondola;
         }
 
-        public void finGondola(List<Cliente> gondolas ,object[][] vector, double proximaLlegada,double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
+        public void finGondola(List<Cliente> total_clientes,List<Cliente> gondolas ,object[][] vector, double proximaLlegada,double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
         {
             // Se inicilializan las variables para la demora de la atención.            
             string evento = "Fin Góndola";
@@ -215,13 +238,22 @@ namespace TP5_SIM_2._02.Formularios
             string metodo = "";
             Cliente cli = new Cliente();
 
-            // Llamo esta función para quitar el cliente que esté bollando en las gondolas y quiere ir a la caja ya.
-            quitarClientesGondola(gondolas, reloj, cli);
+            for (int i = gondolas.Count - 1; i >= 0; i--)
+            {
+                if (gondolas[i].fin_gondola == reloj)
+                {
+                    cli = gondolas[i];
+                    gondolas.RemoveAt(i);
+                }
+            }
+            gondolas.RemoveAll(item => item.fin_gondola == reloj);
 
-            
+            // Llamo esta función para quitar el cliente que esté bollando en las gondolas y quiere ir a la caja ya.
+            //quitarClientesGondola(gondolas, reloj, cli);
+
 
             //Se fija cuando llega el próximo cliente.
-            llegadaCliente(caja1, caja2, rndDemora, a, b, rndMetodo, demoraAtencion, metodo, cli, reloj);
+            llegadaCliente(total_clientes,caja1, caja2, rndDemora, a, b, rndMetodo, demoraAtencion, metodo, cli, reloj);
             
             //Obtiene el menor tiempo en gondola y se lo setea al prox cliente
             double menorGondola = tiempoEnGondolas(gondolas);
@@ -229,12 +261,18 @@ namespace TP5_SIM_2._02.Formularios
             //Crear el vector que va a crear la grilla. 
             vector[1] = vector[0];
             vector[0] = new object[] { evento, reloj, 0, 0, proximaLlegada, 0, menorGondola, rndDemora, demoraAtencion, rndMetodo, metodo, caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendedios, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm };
+
+            foreach (Cliente c in total_clientes)
+            {
+                Array.Resize(ref vector[0], vector[0].Count() + 1);
+                vector[0][vector[0].Count() - 1] = c.estado;
+            }
         }
 
 
         // Esta función registra la llegada al cliente al local, mandandolo a la gondola.
         // Se le agrega 
-        public void llegadaGodola(double media, List<Cliente> gondolas, object[][] vector, double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
+        public void llegadaGodola(List<Cliente> total_clientes, double media, List<Cliente> gondolas, object[][] vector, double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
         {
             /* Definicion de variables y cálculos*/
             string evento = "Llegada Cliente";
@@ -249,19 +287,28 @@ namespace TP5_SIM_2._02.Formularios
             Cliente cli = new Cliente();
             cli.fin_gondola = finGondola;
             cli.hora_llegada = reloj;
+            cli.id = total_clientes.Count();
+            cli.estado = "En góndolas";
             gondolas.Add(cli);
 
             /*Se obtiene el cliente con el tiempo de gondola más chico y se lo asigna a la variable menorGondola*/
-            double menorGondola = menorGondolas(gondolas).fin_gondola;
+            double menorGondola = tiempoEnGondolas(gondolas);
+
+            total_clientes.Add(cli);
 
             vector[1] = vector[0];
             vector[0] = new object[] { evento, reloj, rndLlegada, entre_llegada, proximaLlegada, rndDemoraGondola, menorGondola, 0, 0, 0, "", caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendedios, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm };
 
+            foreach (Cliente c in total_clientes)
+            {
+                Array.Resize(ref vector[0], vector[0].Count() + 1);
+                vector[0][vector[0].Count() - 1] = c.estado;
+            }
 
         }
 
 
-        public List<double> llegadaClienteA(double media, object[][] vector, double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
+        public List<double> llegadaClienteA(List<Cliente> total_clientes,double media, object[][] vector, double reloj, Caja caja1, Caja caja2, double a, double b, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendedios, double acTiempoOcioso, double vecesCaja2Abrio)
         {
             List<double> result = new List<double>();
 
@@ -276,6 +323,7 @@ namespace TP5_SIM_2._02.Formularios
 
             Cliente cli = new Cliente();
             cli.hora_llegada = reloj;
+            cli.id = total_clientes.Count();
 
             if (caja1.estado != "Ocupado")
             {
@@ -291,17 +339,17 @@ namespace TP5_SIM_2._02.Formularios
                     if (rndMetodo < 0.2)
                     {
                         metodo = "Tarjeta";
-                        demoraAtencion = demoraAtencion + 2;
+                        demoraAtencion += 2;
 
                     }
                 //}
 
-                cli.estado = "SA";
                 cli.numCaja = 1;
+                cli.estado = "SA Caja" + cli.numCaja.ToString();
                 caja1.estado = "Ocupado";
                 caja1.finAtencion = demoraAtencion + reloj;
                 caja1.clientes.Enqueue(cli);
-                acTiempoAtencion = acTiempoAtencion + demoraAtencion;
+                acTiempoAtencion += demoraAtencion;
 
                 // para que en la columna de la tabla se muestren los valores (Antes: aparecian los valores 0)
                 vector[0][7] = rndDemora;
@@ -319,6 +367,15 @@ namespace TP5_SIM_2._02.Formularios
                     // esa pila, sin esos dos ultimos, se pasa a cola de nuevo y se lo asigna a caja1.clientes
                     Stack<Cliente> pila = colaAPila(caja1.clientes);
                     Cliente extraccion_1 = pila.Pop();
+                    extraccion_1.numCaja = 2;
+                    extraccion_1.estado = "SA Caja" + extraccion_1.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (extraccion_1.id == c.id)
+                        {
+                            c.estado = extraccion_1.estado;
+                        }
+                    }
                     caja2.clientes.Enqueue(extraccion_1);
                     caja1.clientes.Clear();
                     caja1.clientes = pilaACola(pila);
@@ -326,27 +383,27 @@ namespace TP5_SIM_2._02.Formularios
 
                     //if (caja1.estado != "Ocupado")
                     //{
-                        rndDemora = random.NextDouble();
-                        demoraAtencion = a + (rndDemora * (b - a));
-                        rndMetodo = random.NextDouble();
+                    rndDemora = random.NextDouble();
+                    demoraAtencion = a + (rndDemora * (b - a));
+                    rndMetodo = random.NextDouble();
 
-                        metodo = "Efectivo";
+                    metodo = "Efectivo";
 
-                        if (rndMetodo < 0.2)
-                        {
-                            metodo = "Tarjeta";
-                            demoraAtencion = demoraAtencion + 2;
+                    if (rndMetodo < 0.2)
+                    {
+                        metodo = "Tarjeta";
+                        demoraAtencion += 2;
 
-                        }
+                    }
                     //}
 
-                    acTiempoAtencion = acTiempoAtencion + demoraAtencion;
+                    acTiempoAtencion += demoraAtencion;
 
-                    vecesCaja2Abrio = vecesCaja2Abrio + 1;
+                    vecesCaja2Abrio ++;
                     
                     caja2.finAtencion = demoraAtencion + reloj;
-                    cli.estado = "SA";
                     cli.numCaja = 2;
+                    cli.estado = "EA Caja" + cli.numCaja.ToString();
                     caja2.estado = "Ocupado";
                     // para que en la columna de la tabla se muestre el estado OCUPADO en caja 2 (Antes: quedaba en "Cerrado")
                     vector[0][7] = rndDemora;
@@ -359,32 +416,39 @@ namespace TP5_SIM_2._02.Formularios
                 }
                 else if (caja1.getTamCola() <= caja2.getTamCola())
                 {
-                    cli.estado = "EA";
                     cli.numCaja = 1;
+                    cli.estado = "EA Caja" + cli.numCaja.ToString();
                     caja1.clientes.Enqueue(cli);
 
                 }
                 else
                 {
-                    cli.estado = "EA";
                     cli.numCaja = 2;
+                    cli.estado = "EA Caja" + cli.numCaja.ToString();
                     caja2.clientes.Enqueue(cli);
                 }
             }
             else
             {
-                cli.estado = "EA";
                 cli.numCaja = 1;
+                cli.estado = "EA Caja" + cli.numCaja.ToString();
                 caja1.clientes.Enqueue(cli);
             }
 
             if (caja2.estado == "Cerrado" && vector[1][15].ToString() != "Ocupado")
             {
-                acTiempoOcioso = acTiempoOcioso + reloj;
+                acTiempoOcioso += reloj;
             }
 
             vector[1] = vector[0];
-            vector[0] = new object[] { evento, reloj, rndLlegada,entre_llegada , proximaLlegada,0,0, rndDemora, demoraAtencion, rndMetodo, metodo, caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendedios, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm };
+            total_clientes.Add(cli);
+            vector[0] = new object[] { evento, reloj, rndLlegada,entre_llegada , proximaLlegada,0,0, rndDemora, demoraAtencion, rndMetodo, metodo, caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendedios, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm};
+            
+            foreach (Cliente c in total_clientes)
+            {
+                Array.Resize(ref vector[0], vector[0].Count() + 1);
+                vector[0][vector[0].Count()-1] = c.estado;
+            }
 
             result.Add(acTiempoAtencion);
             result.Add(acTiempoOcioso);
@@ -392,7 +456,7 @@ namespace TP5_SIM_2._02.Formularios
             return result;
         }
 
-        public List<double> finAtencion(double finGondola,double a, double b, Caja caja1, Caja caja2, double reloj, double proximaLlegada, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendidos, object[][]vector, double acTiempoOcioso, double vecesCaja2Abrio)
+        public List<double> finAtencion(List<Cliente> total_clientes,double finGondola,double a, double b, Caja caja1, Caja caja2, double reloj, double proximaLlegada, double acTiempoPerm, double acTiempoAtencion, int cantClientesAtendidos, object[][]vector, double acTiempoOcioso, double vecesCaja2Abrio)
         {
             List<double> result = new List<double>();
 
@@ -407,7 +471,16 @@ namespace TP5_SIM_2._02.Formularios
             {
                 Cliente cliAtendido = caja1.clientes.First();
                 double tiempoPermanencia = reloj - cliAtendido.hora_llegada;
-                acTiempoPerm = acTiempoPerm + tiempoPermanencia;
+                acTiempoPerm +=tiempoPermanencia;
+
+                foreach (Cliente c in total_clientes)
+                {
+                    if (cliAtendido.id == c.id)
+                    {
+                        c.estado = "";
+                    }
+                }
+
                 caja1.clientes.Dequeue();
                 
 
@@ -424,16 +497,23 @@ namespace TP5_SIM_2._02.Formularios
                         if (rndMetodo < 0.2)
                         {  
                             metodo = "Tarjeta";
-                            demoraAtencion = demoraAtencion + 2;
+                            demoraAtencion += 2;
 
                         }
                     //}
 
-                    acTiempoAtencion = acTiempoAtencion + demoraAtencion;
+                    acTiempoAtencion += demoraAtencion;
                     caja1.finAtencion = demoraAtencion + reloj;
                     Cliente siguiente = caja1.clientes.First();
-                    siguiente.estado = "SA";
                     siguiente.numCaja = 1;
+                    siguiente.estado = "SA Caja" + siguiente.numCaja.ToString();
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (siguiente.id == c.id)
+                        {
+                            c.estado = siguiente.estado;
+                        }
+                    }
                     //acTiempoAtencion = acTiempoAtencion + caja1.finAtencion;
 
                 }
@@ -448,7 +528,16 @@ namespace TP5_SIM_2._02.Formularios
             {
                 Cliente cliAtendido = caja2.clientes.Peek();
                 double tiempoPermanencia = reloj - cliAtendido.hora_llegada;
-                acTiempoPerm = acTiempoPerm + tiempoPermanencia;
+                acTiempoPerm += tiempoPermanencia;
+
+                foreach (Cliente c in total_clientes)
+                {
+                    if (cliAtendido.id == c.id)
+                    {
+                        c.estado = "";
+                    }
+                }
+
                 caja2.clientes.Dequeue();
 
                 if (caja2.clientes.Count > 0)
@@ -464,16 +553,24 @@ namespace TP5_SIM_2._02.Formularios
                         if (rndMetodo < 0.2)
                         {
                             metodo = "Tarjeta";
-                            demoraAtencion = demoraAtencion + 2;
+                            demoraAtencion += 2;
 
                         }
                     //}
 
-                    acTiempoAtencion = acTiempoAtencion + demoraAtencion;
+                    acTiempoAtencion += demoraAtencion;
                     caja2.finAtencion = demoraAtencion + reloj;
                     Cliente siguiente = caja2.clientes.First();
-                    siguiente.estado = "SA";
                     siguiente.numCaja = 2;
+                    siguiente.estado = "SA Caja" + siguiente.numCaja.ToString();
+
+                    foreach (Cliente c in total_clientes)
+                    {
+                        if (siguiente.id == c.id)
+                        {
+                            c.estado = siguiente.estado;
+                        }
+                    }
                     //acTiempoAtencion = acTiempoAtencion + caja2.finAtencion;
                 }
                 else if (caja2.clientes.Count == 0)
@@ -487,12 +584,19 @@ namespace TP5_SIM_2._02.Formularios
 
             if (caja2.estado == "Cerrado" && vector[1][15].ToString() != "Ocupado" )
             {
-                acTiempoOcioso = acTiempoOcioso + reloj;
+                acTiempoOcioso += reloj;
             }
             // Resolver el fin de gondola como temporal.
 
             vector[1] = vector[0];
             vector[0] = new object[] { evento, reloj, 0, 0, proximaLlegada,0,finGondola, rndDemora, demoraAtencion, rndMetodo, metodo, caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendidos, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm };
+
+            foreach (Cliente c in total_clientes)
+            {
+                Array.Resize(ref vector[0], vector[0].Count() + 1);
+                vector[0][vector[0].Count() - 1] = c.estado;
+            }
+
 
             result.Add(acTiempoAtencion);
             result.Add(acTiempoOcioso);
@@ -596,12 +700,6 @@ namespace TP5_SIM_2._02.Formularios
 
                 List<double> resultados = new List<double>();
 
-                //**************Esto agregue
-                //contador
-                int[] contador;
-                contador = new int[2];
-                //***************************
-
                 if (desde >= hasta)
                 {
                     MessageBox.Show("El valor 'Hasta' debe ser mayor al valor 'Desde'");
@@ -625,6 +723,10 @@ namespace TP5_SIM_2._02.Formularios
 
                         //promedios
                         double promedioTiempoAtencion;
+
+                        //objetos temporales
+                        List<Cliente> estados_clientes = new List<Cliente>();
+                        List<Cliente> gondolas = new List<Cliente>();
 
                         while (minuto <= iteracion)
                         {
@@ -671,12 +773,12 @@ namespace TP5_SIM_2._02.Formularios
                                     {
                                         minuto = finAtencion1;
 
-                                        resultados = finAtencion(0,a, b, caja1, caja2, minuto, proximaLlegada,acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada,acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         
                                         acTiempoAtencion = resultados.First();
                                         vectorEstado[0][17] = acTiempoAtencion;
 
-                                        acClientesAtendidos = acClientesAtendidos+1;
+                                        acClientesAtendidos++;
                                         vectorEstado[0][18] = acClientesAtendidos;
 
                                         acTiempoOciosoCaja1 = resultados.Last();
@@ -691,12 +793,12 @@ namespace TP5_SIM_2._02.Formularios
                                     {
                                         minuto = finAtencion2;
 
-                                        resultados = finAtencion(0,a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
 
                                         acTiempoAtencion = resultados.First();
                                         vectorEstado[0][17] = acTiempoAtencion;
 
-                                        acClientesAtendidos = acClientesAtendidos + 1;
+                                        acClientesAtendidos++;
                                         vectorEstado[0][18] = acClientesAtendidos;
 
                                         acTiempoOciosoCaja1 = resultados.Last();
@@ -711,11 +813,17 @@ namespace TP5_SIM_2._02.Formularios
                                     {
                                         minuto = proximaLlegada;
 
-                                        resultados = llegadaClienteA(media, vectorEstado, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        resultados = llegadaClienteA(estados_clientes, media, vectorEstado, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         if (vectorEstado[1][11].ToString() == "Libre")
                                         {
-                                            acTiempoOciosoCaja1 = acTiempoOciosoCaja1 + (minuto - Convert.ToDouble(vectorEstado[1][1]));
+                                            acTiempoOciosoCaja1 += (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
+
+                                        DataGridViewColumn cli_estado = new DataGridViewColumn();
+                                        cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
+                                        cli_estado.CellTemplate = new DataGridViewTextBoxCell();
+                                        dgv_datos.Columns.Add(cli_estado);
+
 
 
                                         acTiempoAtencion = resultados.First();
@@ -737,7 +845,7 @@ namespace TP5_SIM_2._02.Formularios
                             }
                             else if (rbCasoB.Checked)
                             {
-                                List<Cliente> gondolas = new List<Cliente>();
+                                
                                 double tiempoGondola;
                                 double hastaMin = double.Parse(tbxCorteB.Text);
                                 
@@ -775,18 +883,24 @@ namespace TP5_SIM_2._02.Formularios
                                     if (menorTiempo == proximaLlegada)
                                     {
                                         minuto = proximaLlegada;
-                                        llegadaGodola(media, gondolas, vectorEstado, minuto, caja1, caja2, desdeGondola, hastaGondola, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        llegadaGodola(estados_clientes,media, gondolas, vectorEstado, minuto, caja1, caja2, desdeGondola, hastaGondola, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         if (vectorEstado[1][13].ToString() == "Libre")
                                         {
-                                            acTiempoOciosoCaja1 = acTiempoOciosoCaja1+(minuto - Convert.ToDouble(vectorEstado[1][1]));
+                                            acTiempoOciosoCaja1 += (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
                                         if (vectorEstado[1][15].ToString() == "Cerrado" && vectorEstado[0][15].ToString() == "Ocupado")
                                         {
-                                            vecesCaja2Abierta = vecesCaja2Abierta + 1;
+                                            vecesCaja2Abierta++;
                                         }
                                         
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
                                         vectorEstado[0][20] = vecesCaja2Abierta;
+
+                                        DataGridViewColumn cli_estado = new DataGridViewColumn();
+                                        cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
+                                        cli_estado.CellTemplate = new DataGridViewTextBoxCell();
+                                        dgv_datos.Columns.Add(cli_estado);
+
                                         if (minuto >= desde)
                                         {
                                             dgv_datos.Rows.Add(vectorEstado[0]);
@@ -795,11 +909,11 @@ namespace TP5_SIM_2._02.Formularios
                                     else if (menorTiempo == tiempoGondola)
                                     {
                                         minuto = tiempoGondola;
-                                        finGondola(gondolas, vectorEstado, proximaLlegada, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        finGondola(estados_clientes,gondolas, vectorEstado, proximaLlegada, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         
                                         if (vectorEstado[1][13].ToString() == "Libre")
                                         {
-                                            acTiempoOciosoCaja1 = acTiempoOciosoCaja1 + (minuto - Convert.ToDouble(vectorEstado[1][1]));
+                                            acTiempoOciosoCaja1 += (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
                                         vectorEstado[0][17] = acTiempoOciosoCaja1;
                                         if (minuto >= desde)
@@ -811,14 +925,14 @@ namespace TP5_SIM_2._02.Formularios
                                     else if (menorTiempo == finAtencion1)
                                     {
                                         minuto = finAtencion1;
-                                        finAtencion(tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         if (vectorEstado[1][13].ToString() == "Libre")
                                         {
                                             acTiempoOciosoCaja1 = acTiempoOciosoCaja1 + (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
                                         
-                                        acTiempoPermanencia = acTiempoPermanencia+ Convert.ToDouble(vectorEstado[1][21]);
-                                        acClientesAtendidos = acClientesAtendidos + 1;
+                                        acTiempoPermanencia += Convert.ToDouble(vectorEstado[1][21]);
+                                        acClientesAtendidos++;
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
                                         if (minuto >= desde)
@@ -830,13 +944,13 @@ namespace TP5_SIM_2._02.Formularios
                                     else
                                     {
                                         minuto = finAtencion2;
-                                        finAtencion(tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
                                         if (vectorEstado[1][11].ToString() == "Libre")
                                         {
-                                            acTiempoOciosoCaja1 = acTiempoOciosoCaja1 + (minuto - Convert.ToDouble(vectorEstado[1][1]));
+                                            acTiempoOciosoCaja1 += (minuto - Convert.ToDouble(vectorEstado[1][1]));
                                         }
-                                        acTiempoPermanencia = acTiempoPermanencia +  Convert.ToDouble(vectorEstado[1][21]);
-                                        acClientesAtendidos = acClientesAtendidos +1 ;
+                                        acTiempoPermanencia += Convert.ToDouble(vectorEstado[1][21]);
+                                        acClientesAtendidos ++ ;
                                         vectorEstado[0][18] = acClientesAtendidos;
                                         vectorEstado[0][19] = acTiempoOciosoCaja1;
                                         if (minuto >= desde)
@@ -872,6 +986,7 @@ namespace TP5_SIM_2._02.Formularios
             tbxDesdeDemoraCliente.Enabled = false;
             tbxHastaDemoraCliente.Enabled = false;
             tbxCorteB.Enabled = false;
+            tbxCorteA.Enabled = true;
 
         }
         
