@@ -435,11 +435,6 @@ namespace TP5_SIM_2._02.Formularios
                 caja1.clientes.Enqueue(cli);
             }
 
-            if (caja2.estado == "Cerrado" && vector[1][15].ToString() != "Ocupado")
-            {
-                acTiempoOcioso += reloj;
-            }
-
             vector[1] = vector[0];
             total_clientes.Add(cli);
             vector[0] = new object[] { evento, reloj, rndLlegada,entre_llegada , proximaLlegada,0,0, rndDemora, demoraAtencion, rndMetodo, metodo, caja1.finAtencion, caja2.finAtencion, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, cantClientesAtendedios, acTiempoOcioso, vecesCaja2Abrio, acTiempoPerm};
@@ -450,6 +445,10 @@ namespace TP5_SIM_2._02.Formularios
                 vector[0][vector[0].Count()-1] = c.estado;
             }
 
+            if ((caja2.estado == "Cerrado") && (vector[1][15].ToString() != "Ocupado"))
+            {
+                acTiempoOcioso += reloj;
+            }
             result.Add(acTiempoAtencion);
             result.Add(acTiempoOcioso);
             result.Add(vecesCaja2Abrio);
@@ -582,10 +581,6 @@ namespace TP5_SIM_2._02.Formularios
 
             }
 
-            if (caja2.estado == "Cerrado" && vector[1][15].ToString() != "Ocupado" )
-            {
-                acTiempoOcioso += reloj;
-            }
             // Resolver el fin de gondola como temporal.
 
             vector[1] = vector[0];
@@ -597,7 +592,10 @@ namespace TP5_SIM_2._02.Formularios
                 vector[0][vector[0].Count() - 1] = c.estado;
             }
 
-
+            if (caja2.estado == "Cerrado" && vector[1][15].ToString() != "Ocupado")
+            {
+                acTiempoOcioso += reloj;
+            }
             result.Add(acTiempoAtencion);
             result.Add(acTiempoOcioso);
             return result;
