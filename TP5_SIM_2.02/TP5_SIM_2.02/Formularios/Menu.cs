@@ -67,7 +67,8 @@ namespace TP5_SIM_2._02.Formularios
 
         // En este foreach lo que se hace es recorrer el vector con clientes que están en las góndolas. 
         // Se fija si el fin de gondola coincide con el tiempo de reloj y si es true, lo quita del vector gondolas.
-        public void quitarClientesGondola(List<Cliente> gondolas, double reloj, Cliente cli)
+        // NO ANDA PORQUE NO SE PUEDE QUITAR COSAS DEL VECTOR CON EL FOREACH
+        /*public void quitarClientesGondola(List<Cliente> gondolas, double reloj, Cliente cli)
         {
             
             foreach (Cliente c in gondolas)
@@ -79,7 +80,7 @@ namespace TP5_SIM_2._02.Formularios
                 }
             }
         }
-
+        */
         public List<double> llegadaCliente(List<Cliente> total_clientes,Caja caja1, Caja caja2, double rndDemora, double a, double b, double rndMetodo, double demoraAtencion, string metodo, Cliente cli, double reloj)
         {
             List<double> result = new List<double>();
@@ -246,6 +247,7 @@ namespace TP5_SIM_2._02.Formularios
             string metodo = "";
             Cliente cli = new Cliente();
 
+            
             for (int i = gondolas.Count - 1; i >= 0; i--)
             {
                 if (gondolas[i].fin_gondola == reloj)
@@ -254,10 +256,6 @@ namespace TP5_SIM_2._02.Formularios
                     gondolas.RemoveAt(i);
                 }
             }
-            gondolas.RemoveAll(item => item.fin_gondola == reloj);
-
-            // Llamo esta función para quitar el cliente que esté bollando en las gondolas y quiere ir a la caja ya.
-            //quitarClientesGondola(gondolas, reloj, cli);
 
 
             //Se fija cuando llega el próximo cliente.
@@ -378,18 +376,18 @@ namespace TP5_SIM_2._02.Formularios
 
                 //if (caja1.estado != "Ocupado")
                 //{
-                    rndDemora = random.NextDouble();
-                    demoraAtencion = a + (rndDemora * (b - a));
-                    rndMetodo = random.NextDouble();
+                rndDemora = random.NextDouble();
+                demoraAtencion = a + (rndDemora * (b - a));
+                rndMetodo = random.NextDouble();
 
-                    metodo = "Efectivo";
+                metodo = "Efectivo";
 
-                    if (rndMetodo < 0.2)
-                    {
-                        metodo = "Tarjeta";
-                        demoraAtencion += 2;
+                if (rndMetodo < 0.2)
+                {
+                    metodo = "Tarjeta";
+                    demoraAtencion += 2;
 
-                    }
+                }
                 //}
 
                 cli.numCaja = 1;
@@ -535,18 +533,18 @@ namespace TP5_SIM_2._02.Formularios
                 {
                     //if (caja1.estado != "Ocupado")
                     //{
-                        rndDemora = random.NextDouble();
-                        demoraAtencion = a + (rndDemora * (b - a));
-                        rndMetodo = random.NextDouble();
+                    rndDemora = random.NextDouble();
+                    demoraAtencion = a + (rndDemora * (b - a));
+                    rndMetodo = random.NextDouble();
 
-                        metodo = "Efectivo";
+                    metodo = "Efectivo";
 
-                        if (rndMetodo < 0.2)
-                        {  
-                            metodo = "Tarjeta";
-                            demoraAtencion += 2;
+                    if (rndMetodo < 0.2)
+                    {  
+                        metodo = "Tarjeta";
+                        demoraAtencion += 2;
 
-                        }
+                    }
                     //}
 
                     acTiempoAtencion += demoraAtencion;
@@ -747,285 +745,279 @@ namespace TP5_SIM_2._02.Formularios
 
                 List<double> resultados = new List<double>();
 
-                if (desde >= hasta)
+                
+                if (desde < iteracion)
                 {
-                    MessageBox.Show("El valor 'Hasta' debe ser mayor al valor 'Desde'");
-                    tbxDesde.Focus();
+                    double minuto= 0.0;
+                    double proximaLlegada;
+                    double finAtencion1;
+                    double finAtencion2;
+
+                    //estadisticas
+                    double acTiempoAtencion = 0;
+                    int acClientesAtendidos = 0;
+                    double acTiempoOciosoCaja1 = 0;
+                    double vecesCaja2Abierta = 0;
+                    double acTiempoPermanencia = 0;
+
+                    //promedios
+                    double promedioTiempoAtencion;
+
+                    //objetos temporales
+                    List<Cliente> estados_clientes = new List<Cliente>();
+                    List<Cliente> gondolas = new List<Cliente>();
+
+                    while (minuto <= iteracion)
+                    {
+                        if (rbCasoA.Checked)
+                        {
+                            // para el caso A oculta columnas del caso B  
+                            dgv_datos.Columns["rndGondola"].Visible = false;
+                            dgv_datos.Columns["tiempoGondola"].Visible = false;
+                            dgv_datos.Columns["tiempoPermanencia"].Visible = false;
+
+                            double hastaClientes = double.Parse(tbxCorteA.Text);
+                            if (acClientesAtendidos == hastaClientes)
+                            {
+                                promedioTiempoAtencion = acTiempoAtencion / hastaClientes;
+                                lblPromedioAtencion.Text = promedioTiempoAtencion.ToString();
+                            }
+
+
+                            //inicializacion
+                            if (minuto == 0.0)
+                            {
+                                caja1.estado = "Libre";
+                                caja1.clientes = new Queue<Cliente>();
+                                caja2.estado = "Cerrado";
+                                caja2.clientes = new Queue<Cliente>();
+                                inicializacion(media, vectorEstado);
+                                dgv_datos.Rows.Add(vectorEstado[0]);
+                                //vectorEstado[0] =[evento, minuto, rnd, entre_llegada, proximaLlegada, 0, 0, 0, 0, 0, 0, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta];
+                                minuto = Convert.ToDouble(vectorEstado[0][4]);
+                            }
+                            else
+                            {
+                                proximaLlegada = Convert.ToDouble(vectorEstado[0][4]);
+                                finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
+                                finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
+                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2 };
+                                mayorACero(tiemposComparar);
+
+
+                                double menorTiempo = tiemposComparar.Min();
+
+                                // solamente puede ser 'fin atencion' si hay gente siento atendida o en cola 
+                                if (menorTiempo == finAtencion1 /*&& caja1.clientes.Count > 0*/)
+                                {
+                                    minuto = finAtencion1;
+
+                                    resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada,acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+                                        
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    acClientesAtendidos++;
+                                    vectorEstado[0][18] = acClientesAtendidos;
+
+                                    acTiempoOciosoCaja1 = resultados.Last();
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+                                        
+                                }
+                                else if (menorTiempo == finAtencion2 /*&& caja2.clientes.Count > 0*/)
+                                {
+                                    minuto = finAtencion2;
+
+                                    resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    acClientesAtendidos++;
+                                    vectorEstado[0][18] = acClientesAtendidos;
+
+                                    acTiempoOciosoCaja1 = resultados.Last();
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+                                }
+                                else
+                                {
+                                    minuto = proximaLlegada;
+
+                                    resultados = llegadaClienteA(estados_clientes, media, vectorEstado, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    DataGridViewColumn cli_estado = new DataGridViewColumn();
+                                    cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
+                                    cli_estado.CellTemplate = new DataGridViewTextBoxCell();
+                                    dgv_datos.Columns.Add(cli_estado);
+
+
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    vecesCaja2Abierta = resultados.Last();
+
+                                    acTiempoOciosoCaja1 = resultados[1];
+
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+                                    vectorEstado[0][20] = vecesCaja2Abierta;
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+                                }
+
+                            }
+                        }
+                        else if (rbCasoB.Checked)
+                        {
+                                
+                            double tiempoGondola;
+                            double hastaMin = double.Parse(tbxCorteB.Text);
+
+                            lblPromedioAtencion.Visible = false;
+
+                            //inicializacion
+                            if (minuto == 0.0)
+                            {
+                                caja1.estado = "Libre";
+                                caja1.clientes = new Queue<Cliente>();
+                                caja2.estado = "Cerrado";
+                                caja2.clientes = new Queue<Cliente>();
+                                inicializacion(media, vectorEstado);
+                                dgv_datos.Rows.Add(vectorEstado[0]);
+                                //vectorEstado[0] =[evento, minuto, rnd, entre_llegada, proximaLlegada, 0, 0, 0, 0, 0, 0, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta];
+                                minuto = Convert.ToDouble(vectorEstado[0][4]);
+                            }
+                            else
+                            {
+                                proximaLlegada = Convert.ToDouble(vectorEstado[0][4]);
+                                finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
+                                finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
+                                tiempoGondola = Convert.ToDouble(vectorEstado[0][6]);
+                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2, tiempoGondola };
+                                mayorACero(tiemposComparar);
+
+                                double menorTiempo = tiemposComparar.Min();
+
+                                double promedioPermanencia = 0;
+                                if (promedioPermanencia == 0 && menorTiempo > hastaMin)
+                                {
+                                    promedioPermanencia = acTiempoPermanencia / acClientesAtendidos;
+                                    lblPromedioPermanencia.Text = promedioPermanencia.ToString();
+                                }
+
+                                if (menorTiempo == tiempoGondola)
+                                {
+                                    minuto = tiempoGondola;
+                                    resultados = finGondola(estados_clientes,gondolas, vectorEstado, proximaLlegada, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    acTiempoOciosoCaja1 = resultados.First();
+                                    vecesCaja2Abierta = resultados[1];
+
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+                                    vectorEstado[0][20] = vecesCaja2Abierta;
+
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+
+                                }
+                                else if (menorTiempo == finAtencion1 && caja1.clientes.Count > 0)
+                                {
+                                    minuto = finAtencion1;
+                                    resultados = finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    acClientesAtendidos++;
+                                    vectorEstado[0][18] = acClientesAtendidos;
+
+                                    acTiempoOciosoCaja1 = resultados.Last();
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+
+                                    acTiempoPermanencia = resultados[1];
+                                    vectorEstado[0][21] = acTiempoPermanencia;
+
+
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+
+                                }
+                                else if (menorTiempo == finAtencion2 && caja2.clientes.Count > 0)
+                                {
+                                    minuto = finAtencion2;
+                                    resultados = finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    acClientesAtendidos++;
+                                    vectorEstado[0][18] = acClientesAtendidos;
+
+                                    acTiempoOciosoCaja1 = resultados.Last();
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+
+                                    acTiempoPermanencia = resultados[1];
+                                    vectorEstado[0][21] = acTiempoPermanencia;
+
+                                      
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+                                }
+                                else
+                                {
+                                    minuto = proximaLlegada;
+                                    resultados = llegadaGodola(estados_clientes, media, gondolas, vectorEstado, minuto, caja1, caja2, desdeGondola, hastaGondola, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
+
+                                    DataGridViewColumn cli_estado = new DataGridViewColumn();
+                                    cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
+                                    cli_estado.CellTemplate = new DataGridViewTextBoxCell();
+                                    dgv_datos.Columns.Add(cli_estado);
+
+
+                                    acTiempoAtencion = resultados.First();
+                                    vectorEstado[0][17] = acTiempoAtencion;
+
+                                    vecesCaja2Abierta = resultados.Last();
+
+                                    acTiempoOciosoCaja1 = resultados[1];
+
+                                    vectorEstado[0][19] = acTiempoOciosoCaja1;
+                                    vectorEstado[0][20] = vecesCaja2Abierta;
+
+
+                                    if (minuto >= desde && minuto <= hasta)
+                                    {
+                                        dgv_datos.Rows.Add(vectorEstado[0]);
+                                    }
+                                }
+                            }
+                        }
+                            
+                    }
+                    lblPromedioOcioso.Text = (acTiempoOciosoCaja1 / minuto).ToString();
                 }
                 else
                 {
-                    if (desde < iteracion)
-                    {
-                        double minuto= 0.0;
-                        double proximaLlegada;
-                        double finAtencion1;
-                        double finAtencion2;
-
-                        //estadisticas
-                        double acTiempoAtencion = 0;
-                        int acClientesAtendidos = 0;
-                        double acTiempoOciosoCaja1 = 0;
-                        double vecesCaja2Abierta = 0;
-                        double acTiempoPermanencia = 0;
-
-                        //promedios
-                        double promedioTiempoAtencion;
-
-                        //objetos temporales
-                        List<Cliente> estados_clientes = new List<Cliente>();
-                        List<Cliente> gondolas = new List<Cliente>();
-
-                        while (minuto <= iteracion)
-                        {
-                            if (rbCasoA.Checked)
-                            {
-                                // para el caso A oculta columnas del caso B  
-                                dgv_datos.Columns["rndGondola"].Visible = false;
-                                dgv_datos.Columns["tiempoGondola"].Visible = false;
-                                dgv_datos.Columns["tiempoPermanencia"].Visible = false;
-
-                                double hastaClientes = double.Parse(tbxCorteA.Text);
-                                if (acClientesAtendidos == hastaClientes)
-                                {
-                                    promedioTiempoAtencion = acTiempoAtencion / hastaClientes;
-                                    lblPromedioAtencion.Text = promedioTiempoAtencion.ToString();
-                                }
-
-
-                                //inicializacion
-                                if (minuto == 0.0)
-                                {
-                                    caja1.estado = "Libre";
-                                    caja1.clientes = new Queue<Cliente>();
-                                    caja2.estado = "Cerrado";
-                                    caja2.clientes = new Queue<Cliente>();
-                                    inicializacion(media, vectorEstado);
-                                    dgv_datos.Rows.Add(vectorEstado[0]);
-                                    //vectorEstado[0] =[evento, minuto, rnd, entre_llegada, proximaLlegada, 0, 0, 0, 0, 0, 0, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta];
-                                    minuto = Convert.ToDouble(vectorEstado[0][4]);
-                                }
-                                else
-                                {
-                                    proximaLlegada = Convert.ToDouble(vectorEstado[0][4]);
-                                    finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
-                                    finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
-                                    List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2 };
-                                    mayorACero(tiemposComparar);
-
-
-                                    double menorTiempo = tiemposComparar.Min();
-
-                                    // solamente puede ser 'fin atencion' si hay gente siento atendida o en cola 
-                                    if (menorTiempo == finAtencion1 && caja1.clientes.Count > 0)
-                                    {
-                                        minuto = finAtencion1;
-
-                                        resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada,acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
-                                        
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        acClientesAtendidos++;
-                                        vectorEstado[0][18] = acClientesAtendidos;
-
-                                        acTiempoOciosoCaja1 = resultados.Last();
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-                                        
-                                    }
-                                    else if (menorTiempo == finAtencion2 && caja2.clientes.Count > 0)
-                                    {
-                                        minuto = finAtencion2;
-
-                                        resultados = finAtencion(estados_clientes,0,a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        acClientesAtendidos++;
-                                        vectorEstado[0][18] = acClientesAtendidos;
-
-                                        acTiempoOciosoCaja1 = resultados.Last();
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        minuto = proximaLlegada;
-
-                                        resultados = llegadaClienteA(estados_clientes, media, vectorEstado, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        DataGridViewColumn cli_estado = new DataGridViewColumn();
-                                        cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
-                                        cli_estado.CellTemplate = new DataGridViewTextBoxCell();
-                                        dgv_datos.Columns.Add(cli_estado);
-
-
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        vecesCaja2Abierta = resultados.Last();
-
-                                        acTiempoOciosoCaja1 = resultados[1];
-
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        vectorEstado[0][20] = vecesCaja2Abierta;
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-                                    }
-
-                                }
-                            }
-                            else if (rbCasoB.Checked)
-                            {
-                                
-                                double tiempoGondola;
-                                double hastaMin = double.Parse(tbxCorteB.Text);
-
-                                lblPromedioAtencion.Visible = false;
-
-                                //inicializacion
-                                if (minuto == 0.0)
-                                {
-                                    caja1.estado = "Libre";
-                                    caja1.clientes = new Queue<Cliente>();
-                                    caja2.estado = "Cerrado";
-                                    caja2.clientes = new Queue<Cliente>();
-                                    inicializacion(media, vectorEstado);
-                                    dgv_datos.Rows.Add(vectorEstado[0]);
-                                    //vectorEstado[0] =[evento, minuto, rnd, entre_llegada, proximaLlegada, 0, 0, 0, 0, 0, 0, caja1.estado, caja1.getTamCola(), caja2.estado, caja2.getTamCola(), acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta];
-                                    minuto = Convert.ToDouble(vectorEstado[0][4]);
-                                }
-                                else
-                                {
-                                    proximaLlegada = Convert.ToDouble(vectorEstado[0][4]);
-                                    finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
-                                    finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
-                                    tiempoGondola = Convert.ToDouble(vectorEstado[0][6]);
-                                    List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2, tiempoGondola };
-                                    mayorACero(tiemposComparar);
-
-                                    double menorTiempo = tiemposComparar.Min();
-
-                                    double promedioPermanencia = 0;
-                                    if (promedioPermanencia == 0 && menorTiempo > hastaMin)
-                                    {
-                                        promedioPermanencia = acTiempoPermanencia / acClientesAtendidos;
-                                        lblPromedioPermanencia.Text = promedioPermanencia.ToString();
-                                    }
-
-                                    if (menorTiempo == tiempoGondola)
-                                    {
-                                        minuto = tiempoGondola;
-                                        resultados = finGondola(estados_clientes,gondolas, vectorEstado, proximaLlegada, minuto, caja1, caja2, a, b, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        acTiempoOciosoCaja1 = resultados.First();
-                                        vecesCaja2Abierta = resultados[1];
-
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        vectorEstado[0][20] = vecesCaja2Abierta;
-
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-
-                                    }
-                                    else if (menorTiempo == finAtencion1 && caja1.clientes.Count > 0)
-                                    {
-                                        minuto = finAtencion1;
-                                        resultados = finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        acClientesAtendidos++;
-                                        vectorEstado[0][18] = acClientesAtendidos;
-
-                                        acTiempoOciosoCaja1 = resultados.Last();
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-
-                                        acTiempoPermanencia = resultados[1];
-                                        vectorEstado[0][21] = acTiempoPermanencia;
-
-
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-
-                                    }
-                                    else if (menorTiempo == finAtencion2 && caja2.clientes.Count > 0)
-                                    {
-                                        minuto = finAtencion2;
-                                        resultados = finAtencion(estados_clientes,tiempoGondola, a, b, caja1, caja2, minuto, proximaLlegada, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, vectorEstado, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        acClientesAtendidos++;
-                                        vectorEstado[0][18] = acClientesAtendidos;
-
-                                        acTiempoOciosoCaja1 = resultados.Last();
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-
-                                        acTiempoPermanencia = resultados[1];
-                                        vectorEstado[0][21] = acTiempoPermanencia;
-
-                                      
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        minuto = proximaLlegada;
-                                        resultados = llegadaGodola(estados_clientes, media, gondolas, vectorEstado, minuto, caja1, caja2, desdeGondola, hastaGondola, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
-
-                                        DataGridViewColumn cli_estado = new DataGridViewColumn();
-                                        cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
-                                        cli_estado.CellTemplate = new DataGridViewTextBoxCell();
-                                        dgv_datos.Columns.Add(cli_estado);
-
-
-                                        acTiempoAtencion = resultados.First();
-                                        vectorEstado[0][17] = acTiempoAtencion;
-
-                                        vecesCaja2Abierta = resultados.Last();
-
-                                        acTiempoOciosoCaja1 = resultados[1];
-
-                                        vectorEstado[0][19] = acTiempoOciosoCaja1;
-                                        vectorEstado[0][20] = vecesCaja2Abierta;
-
-
-                                        if (minuto >= desde)
-                                        {
-                                            dgv_datos.Rows.Add(vectorEstado[0]);
-                                        }
-                                    }
-                                }
-                            }
-                            
-                        }
-                        lblPromedioOcioso.Text = (acTiempoOciosoCaja1 / minuto).ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Valores fuera de rango");
-                        tbxDesde.Focus();
-                    }
+                    MessageBox.Show("Valores fuera de rango");
+                    tbxDesde.Focus();
                 }
+                
             }
         }
 
