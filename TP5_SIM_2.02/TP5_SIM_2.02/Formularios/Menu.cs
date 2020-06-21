@@ -52,6 +52,60 @@ namespace TP5_SIM_2._02.Formularios
 
         }
         
+        //Esta función solo lleva a cabo el cálculo correspondiente
+        public double ecuacionDiferencial(double alpha, double logsE)
+        {
+            // hice la tirada para 50 clientes, y me salió que el tiempo que tarda en llenarse el disco es 102.46 minutos.
+            // Con este dato deberiamos sacar el resto de valores.
+            // es decir, E(102.46) = 100 %.
+            // alpha va a ser igual a 0.029 aprox. Que lo calculo en la fórmula de abajo.
+            
+            double tasaCrecimiento = alpha * logsE;
+            return tasaCrecimiento;
+        }
+
+        // Calculo mi alpha a partir de las tiradas que hice y de la fórmula que dió el profe.
+        public double calculoAlpha()
+        {
+            double alpha = Math.Log(100 / 5) * (1 / 102.46);
+            return alpha;
+        }
+
+        //Esta función genera un RND llamado randomTasa. Le paso por parámetros los tiempos de Porcentaje de Ocupación, que se van a sacar
+        // de lo que se obtenga de la función ecuacionDiferencial. 
+        // Me devuelve el tiempo en que se va a reanudar la ecuación diferencial y le cambia el estado a la caja1.
+
+        // RECORDAR: El profe dijo que se le agregan 20 minutos después de que se detiene para llevar a cabo "la purga".
+        // Otra cosa para recordar: El valor de logsE inicia en 5 hasta el 100 que es un porcentaje. Cuando se pone inestable, se detiene
+        // se lleva a cabo la purga que es de 20 minutos y logsE vuelve a estar en 5.
+
+        public double calcularFinPurga(double porcentajeOcupacion, Caja caja1, double reloj)
+        {
+            double randomTasa =  random.NextDouble();
+            double tiempoFinPurga = -1;
+            if((porcentajeOcupacion == 100 && randomTasa <= 0.5) || (porcentajeOcupacion == 70 && randomTasa <= 0.3) || (porcentajeOcupacion == 50 && randomTasa <= 0.2))
+            {
+                caja1.estado = "Purgando";
+                tiempoFinPurga = reloj + 21;
+                return tiempoFinPurga;
+            }   
+            return tiempoFinPurga;
+
+        }
+
+        // Mi idea es llamar esta función cada vez que ocurra una purga, pasandole como parámetro el vector
+        // que deberíamos generar en la ecuación diferencial
+        // le puse i = 1 para dejar la primer línea del vector vigente.
+        // El tamaño del vector, según lo que entendí, no debería el 100% de procesamiento de disco.
+        public List<double> purga(List<double> vectorEcDif)
+        {
+            for(int i = 1; i < vectorEcDif.Count; i++)
+            {
+                vectorEcDif.Remove(vectorEcDif[i]);
+            }
+            return vectorEcDif;
+        }
+
 
         
         public void mayorACero(List<double> valores)
