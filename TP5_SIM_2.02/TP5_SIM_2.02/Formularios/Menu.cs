@@ -35,8 +35,7 @@ namespace TP5_SIM_2._02.Formularios
     public partial class Menu : Form
     {
         private static readonly Random random = new Random();
-        private object DataControlRowType;
-        
+       
 
         public Menu()
         {
@@ -576,7 +575,7 @@ namespace TP5_SIM_2._02.Formularios
                 {
                     if (cliAtendido.id == c.id)
                     {
-                        c.estado = "";
+                        c.estado = "Finalizado";
                     }
                 }
 
@@ -633,7 +632,7 @@ namespace TP5_SIM_2._02.Formularios
                 {
                     if (cliAtendido.id == c.id)
                     {
-                        c.estado = "";
+                        c.estado = "Finalizado";
                     }
                 }
 
@@ -1038,10 +1037,7 @@ namespace TP5_SIM_2._02.Formularios
                                     minuto = proximaLlegada;
                                     resultados = llegadaGodola(estados_clientes, media, gondolas, vectorEstado, minuto, caja1, caja2, desdeGondola, hastaGondola, acTiempoPermanencia, acTiempoAtencion, acClientesAtendidos, acTiempoOciosoCaja1, vecesCaja2Abierta);
 
-                                    DataGridViewColumn cli_estado = new DataGridViewColumn();
-                                    cli_estado.HeaderText = "Estado " + estados_clientes.Count().ToString();
-                                    cli_estado.CellTemplate = new DataGridViewTextBoxCell();
-                                    dgv_datos.Columns.Add(cli_estado);
+                                    
 
 
                                     acTiempoAtencion = resultados.First();
@@ -1057,6 +1053,18 @@ namespace TP5_SIM_2._02.Formularios
 
                                     if (minuto >= desde && minuto <= hasta)
                                     {
+
+                                        DataGridViewColumn cli_estado = new DataGridViewColumn();
+                                        cli_estado.HeaderText = "Estado Cliente" + estados_clientes.Count().ToString();
+                                        cli_estado.CellTemplate = new DataGridViewTextBoxCell();
+                                        dgv_datos.Columns.Add(cli_estado);
+
+                                        /*object[] vector2 = vectorEstado[0].Skip(count).ToArray() ;
+                                        object[] vector1 = vectorEstado[0].Take(22).ToArray();
+                                        object[] vectorMostrar = new object[vector1.Length + vector2.Length];
+                                        vector1.CopyTo(vectorMostrar, 0);
+                                        vector2.CopyTo(vectorMostrar, vector1.Length);*/
+
                                         dgv_datos.Rows.Add(vectorEstado[0]);
                                     }
                                 }
