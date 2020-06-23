@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,25 +12,8 @@ using System.Windows.Forms;
 using TP5_SIM_2._02.Clases;
 
 /*
-COSAS QUE FALTAN:
-
-PROGRAMACION:
-    1- ARREGLAR LOS ACUMULADORES Y CONTADORES -- DELFI Y YO. 
-    2- MOSTRAR ESTADOS DE LOS CLIENTES -- JOSÉ
-    3- COLA 2 -- DELFI Y IO 
-
-WORD/PDF:
-    1- ESPECIFICACIÓN DE REQUERIMIENTOS (a) -- JOSÉ
-    2- DIAGRAMA DE FLUJO (c) -- CAMI Y DAI
-    3- MODELADO (b) -- DAI
-
-
-OPCIONAL: (SI PINTA VERLO)
-    1- HACER UNA MÉTRICA MÁS PIOLA
  */
 
-//Ver el tiempo de atencion
-//
 namespace TP5_SIM_2._02.Formularios
 {
     public partial class Menu : Form
@@ -64,12 +48,107 @@ namespace TP5_SIM_2._02.Formularios
             return tasaCrecimiento;
         }
 
+        public List<double> calcularKs(double E, double alpha)
+        {
+            double h = 0.1;
+            double k1 = ecuacionDiferencial(alpha, E);
+            double k2 = ecuacionDiferencial(alpha, E) + (k1 * h / 2);
+            double k3 = ecuacionDiferencial(alpha, E) + (k2 * h / 2);
+            double k4 = ecuacionDiferencial(alpha, E) + (k3 * h);
+
+            List<double> k = new List<double>();
+            k[0] = k1;
+            k[1] = k2;
+            k[2] = k3;
+            k[3] = k4;
+
+            return k;
+
+        }
+
+        public object[][] calculaLogsE()
+        {
+            double t = 0;
+            double h = 0.1;
+            List<double> vectorEct = new List<double>();
+            List<double> vectorE = new List<double>();
+            
+
+            double alpha = calculoAlpha();
+
+            // Inicialización, primer fila
+
+            double logsE = 5;
+
+            double k1 = calcularKs(alpha, logsE)[0];
+            double k2 = calcularKs(alpha, logsE)[1];
+            double k3 = calcularKs(alpha, logsE)[2];
+            double k4 = calcularKs(alpha, logsE)[3];
+
+            double logsESiguiente = logsE + (h/6)*(k1 + 2*k2 + 2*k3 + k4);
+
+
+            for (int i = 0; i < 100; i++)
+            {
+                if (i == 0)
+                {
+                    vectorEct.Add(t);
+                    vectorE.Add(logsE);
+                }
+                else
+                {
+                    // Siguiente valor de E, es decir, E(i+1)
+
+                    t += h;
+                    vectorEct.Add(t);
+
+                    vectorE.Add(logsESiguiente);
+
+                    k1 = calcularKs(alpha, logsESiguiente)[0];
+                    k2 = calcularKs(alpha, logsESiguiente)[1];
+                    k3 = calcularKs(alpha, logsESiguiente)[2];
+                    k4 = calcularKs(alpha, logsESiguiente)[3];
+                    logsESiguiente = logsE + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+
+                }
+                                            
+            }
+
+            Object[][] vectorFinal = new object[2][];
+            vectorFinal[0] = new object[] { vectorEct };
+            vectorFinal[1] = new object[] { vectorE };
+            return vectorFinal;
+
+        }
+
+
         // Calculo mi alpha a partir de las tiradas que hice y de la fórmula que dió el profe.
         public double calculoAlpha()
         {
-            double alpha = Math.Log(100 / 5) * (1 / 102.46);
+            double alpha = Math.Log(100 / 5) * (1 / 102.4);
             return alpha;
         }
+        public double calcularInestabilidad()
+        {
+            double randomTasa = random.NextDouble();
+            double tiempoInestabilidad = 0;
+            if (randomTasa < 0.2)
+            {
+                tiempoInestabilidad = 78.7;
+
+            }
+            else if(randomTasa < 0.5)
+            {
+                tiempoInestabilidad = 90.2;
+            }
+            else
+            {
+                tiempoInestabilidad = 102.4;
+            }
+            return tiempoInestabilidad;
+        }
+
+        /*Esta función es la que nos va a devolver el valor fijo que va a estar */
 
         //Esta función genera un RND llamado randomTasa. Le paso por parámetros los tiempos de Porcentaje de Ocupación, que se van a sacar
         // de lo que se obtenga de la función ecuacionDiferencial. 
@@ -79,16 +158,13 @@ namespace TP5_SIM_2._02.Formularios
         // Otra cosa para recordar: El valor de logsE inicia en 5 hasta el 100 que es un porcentaje. Cuando se pone inestable, se detiene
         // se lleva a cabo la purga que es de 20 minutos y logsE vuelve a estar en 5.
 
-        public double calcularFinPurga(double porcentajeOcupacion, Caja caja1, double reloj)
+        public double calcularFinPurga(Caja caja1, double reloj)
         {
-            double randomTasa =  random.NextDouble();
-            double tiempoFinPurga = -1;
-            if((porcentajeOcupacion == 100 && randomTasa <= 0.5) || (porcentajeOcupacion == 70 && randomTasa <= 0.3) || (porcentajeOcupacion == 50 && randomTasa <= 0.2))
-            {
-                caja1.estado = "Purgando";
-                tiempoFinPurga = reloj + 21;
-                return tiempoFinPurga;
-            }   
+
+            double tiempoFinPurga = 0;
+
+            caja1.estado = "Purgando";
+            tiempoFinPurga = reloj + 20;
             return tiempoFinPurga;
 
         }
@@ -775,7 +851,7 @@ namespace TP5_SIM_2._02.Formularios
 
             string iter = txtIteraciones.Text;
             string des = tbxDesde.Text;
-            
+            double tiempoInestabilidad = calcularInestabilidad();
 
             if (iter == "" || des == "")
             {
@@ -855,7 +931,10 @@ namespace TP5_SIM_2._02.Formularios
                                 proximaLlegada = Convert.ToDouble(vectorEstado[0][4]);
                                 finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
                                 finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
-                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2 };
+                                
+                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2, tiempoInestabilidad };
+                                
+                                
                                 mayorACero(tiemposComparar);
 
 
