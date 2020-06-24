@@ -35,7 +35,7 @@ namespace TP5_SIM_2._02.Formularios
 
         }
         
-        //Esta función solo lleva a cabo el cálculo correspondiente
+        /*Esta función solo lleva a cabo el cálculo correspondiente
         public double ecuacionDiferencial(double alpha, double logsE)
         {
             // hice la tirada para 50 clientes, y me salió que el tiempo que tarda en llenarse el disco es 102.46 minutos.
@@ -126,7 +126,7 @@ namespace TP5_SIM_2._02.Formularios
         {
             double alpha = Math.Log(100 / 5) * (1 / 102.4);
             return alpha;
-        }
+        }*/
         public double calcularInestabilidad()
         {
             double randomTasa = random.NextDouble();
@@ -194,22 +194,7 @@ namespace TP5_SIM_2._02.Formularios
             }
         }
 
-        // En este foreach lo que se hace es recorrer el vector con clientes que están en las góndolas. 
-        // Se fija si el fin de gondola coincide con el tiempo de reloj y si es true, lo quita del vector gondolas.
-        // NO ANDA PORQUE NO SE PUEDE QUITAR COSAS DEL VECTOR CON EL FOREACH
-        /*public void quitarClientesGondola(List<Cliente> gondolas, double reloj, Cliente cli)
-        {
-            
-            foreach (Cliente c in gondolas)
-            {
-                if (c.fin_gondola == reloj)
-                {
-                    cli = c;
-                    gondolas.Remove(c);
-                }
-            }
-        }
-        */
+
         public List<double> llegadaCliente(List<Cliente> total_clientes,Caja caja1, Caja caja2, double rndDemora, double a, double b, double rndMetodo, double demoraAtencion, string metodo, Cliente cli, double reloj)
         {
             List<double> result = new List<double>();
@@ -895,6 +880,7 @@ namespace TP5_SIM_2._02.Formularios
                     //objetos temporales
                     List<Cliente> estados_clientes = new List<Cliente>();
                     List<Cliente> gondolas = new List<Cliente>();
+                    int count = 0;
 
                     while (minuto <= iteracion)
                     {
@@ -931,9 +917,7 @@ namespace TP5_SIM_2._02.Formularios
                                 finAtencion1 = Convert.ToDouble(vectorEstado[0][11]);
                                 finAtencion2 = Convert.ToDouble(vectorEstado[0][12]);
                                 
-                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2, tiempoInestabilidad };
-                                
-                                
+                                List<double> tiemposComparar = new List<double> { proximaLlegada, finAtencion1, finAtencion2, tiempoInestabilidad };                                
                                 mayorACero(tiemposComparar);
 
 
@@ -999,6 +983,7 @@ namespace TP5_SIM_2._02.Formularios
 
                                     acTiempoOciosoCaja1 = resultados[1];
 
+                                    vectorEstado[0][0] = "Llegada Cliente " + count++.ToString();
                                     vectorEstado[0][19] = acTiempoOciosoCaja1;
                                     vectorEstado[0][20] = vecesCaja2Abierta;
                                     if (minuto >= desde && minuto <= hasta)
