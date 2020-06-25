@@ -940,14 +940,14 @@ namespace TP5_SIM_2._02.Formularios
 
 
                                     acTiempoAtencion = resultados.First();
-                                    vectorEstado[0][19] = acTiempoAtencion;
+                                    vectorEstado[0][20] = acTiempoAtencion;
 
                                     vecesCaja2Abierta = resultados.Last();
 
                                     acTiempoOciosoCaja1 = resultados[1];
 
-                                    vectorEstado[0][21] = acTiempoOciosoCaja1;
-                                    vectorEstado[0][22] = vecesCaja2Abierta;
+                                    vectorEstado[0][22] = acTiempoOciosoCaja1;
+                                    vectorEstado[0][23] = vecesCaja2Abierta;
                                     if (minuto >= desde && minuto <= hasta)
                                     {
                                         DataGridViewColumn cli_estado = new DataGridViewColumn();
