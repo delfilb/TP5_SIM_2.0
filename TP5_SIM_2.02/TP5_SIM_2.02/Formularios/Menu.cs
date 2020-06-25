@@ -787,7 +787,7 @@ namespace TP5_SIM_2._02.Formularios
             {
                 double iteracion = double.Parse(iter);
                 double desde = double.Parse(des);
-                double hasta = desde + 100.00;
+                double hasta = desde + 200.00;
                 double media = double.Parse(tbxMedia.Text);
                 double a = double.Parse(tbxDesdeDemoraCaja.Text);
                 double b = double.Parse(tbxHastaDemoraCaja.Text);
