@@ -14,6 +14,8 @@ namespace TP5_SIM_2._02.Clases
         // el atributo clientes guarda los clientes en la cola mas el que esta atendiendo
         public Queue<Cliente> clientes { get; set; }
         public string estado { get; set; }
+        public double tiempoRemanente { get; set; }
+        public double finPurga { get; set; }
 
         public int getTamCola()
         {
